@@ -3,18 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Sigiri</title>
+    <title>Sigiri Design Studio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
-        .container { max-width: 600px; margin: 80px auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; }
-        p { color: #555; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+            color: #222;
+        }
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 0.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar .logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #3a8ee6;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+        .navbar .logo i {
+            margin-right: 10px;
+        }
+        .navbar nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #222;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .navbar nav a:hover {
+            color: #3a8ee6;
+        }
+        .hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #3a8ee6;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 40px;
+        }
+        .cta-btn {
+            background: linear-gradient(90deg, #3a8ee6 0%, #6dd5ed 100%);
+            color: #fff;
+            border: none;
+            padding: 18px 48px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(58,142,230,0.12);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .cta-btn:hover {
+            background: linear-gradient(90deg, #6dd5ed 0%, #3a8ee6 100%);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .tools-section {
+            max-width: 1100px;
+            margin: 60px auto 0;
+            padding: 0 20px;
+        }
+        .tools-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #3a8ee6;
+            margin-bottom: 30px;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        .tool-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 12px rgba(58,142,230,0.08);
+            padding: 32px 24px;
+            text-align: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .tool-card:hover {
+            box-shadow: 0 8px 32px rgba(58,142,230,0.18);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .tool-card i {
+            font-size: 2.5rem;
+            color: #3a8ee6;
+            margin-bottom: 18px;
+        }
+        .tool-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .tool-card p {
+            color: #555;
+            font-size: 1rem;
+        }
+        .footer {
+            background: #f7fafd;
+            text-align: center;
+            padding: 40px 20px 20px;
+            margin-top: 60px;
+            color: #888;
+            font-size: 1rem;
+        }
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .tools-title {
+                font-size: 1.3rem;
+            }
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Sigiri</h1>
-        <p>This is your index page. Hosted with GitHub and DigitalOcean.</p>
+    <div class="navbar">
+        <div class="logo"><i class="fas fa-palette"></i>Sigiri</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Templates</a>
+            <a href="#">Features</a>
+            <a href="#">Pricing</a>
+            <a href="#">Login</a>
+        </nav>
+    </div>
+    <section class="hero">
+        <h1>Design Anything, Effortlessly</h1>
+        <p>Create stunning graphics, presentations, and more with Sigiri's easy-to-use online design studio. No experience required!</p>
+        <button class="cta-btn">Start Designing</button>
+    </section>
+    <section class="tools-section">
+        <div class="tools-title">Popular Design Tools</div>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <i class="fas fa-image"></i>
+                <h3>Photo Editor</h3>
+                <p>Edit, crop, and enhance your images with powerful yet simple tools.</p>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-file-powerpoint"></i>
+                <h3>Presentation Maker</h3>
+                <p>Build beautiful slides for work, school, or events in minutes.</p>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-file-alt"></i>
+                <h3>Poster & Flyer Designer</h3>
+                <p>Design eye-catching posters and flyers for any occasion.</p>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-video"></i>
+                <h3>Video Creator</h3>
+                <p>Make engaging videos and animations with drag-and-drop ease.</p>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-font"></i>
+                <h3>Logo Maker</h3>
+                <p>Create a unique logo for your brand or project in seconds.</p>
+            </div>
+            <div class="tool-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Social Media Posts</h3>
+                <p>Design posts and stories for Instagram, Facebook, and more.</p>
+            </div>
+        </div>
+    </section>
+    <div class="footer">
+        &copy; 2025 Sigiri. Inspired by Canva. All rights reserved.
     </div>
 </body>
 </html>
