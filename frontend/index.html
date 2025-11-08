@@ -194,6 +194,9 @@
             transition: all 0.3s ease;
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
         .tool-card:hover {
             background: rgba(255, 255, 255, 1);
@@ -252,51 +255,51 @@
     <div class="navbar">
         <div class="logo">SIGIRI</div>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Templates</a>
-            <a href="#">Features</a>
-            <a href="#">Pricing</a>
-            <a href="#">Login</a>
+            <a href="login.html">Home</a>
+            <a href="login.html">Templates</a>
+            <a href="login.html">Features</a>
+            <a href="login.html">Pricing</a>
+            <a href="login.html">Login</a>
         </nav>
     </div>
     <section class="hero">
         <h1>AI-Powered Design Studio</h1>
         <p>Create stunning graphics, presentations, and more with Sigiri's intelligent design tools. Let AI do the heavy lifting!</p>
-        <button class="cta-btn"><span>Start Designing</span></button>
+        <button class="cta-btn" onclick="window.location.href='login.html'"><span>Start Designing</span></button>
     </section>
     <section class="tools-section">
         <div class="tools-title">Popular Design Tools</div>
         <div class="tools-grid">
-            <div class="tool-card">
+            <a href="login.html" class="tool-card">
                 <i class="fas fa-image"></i>
                 <h3>Photo Editor</h3>
                 <p>Edit, crop, and enhance your images with powerful yet simple tools.</p>
-            </div>
-            <div class="tool-card">
+            </a>
+            <a href="login.html" class="tool-card">
                 <i class="fas fa-file-powerpoint"></i>
                 <h3>Presentation Maker</h3>
                 <p>Build beautiful slides for work, school, or events in minutes.</p>
-            </div>
-            <div class="tool-card">
+            </a>
+            <a href="login.html" class="tool-card">
                 <i class="fas fa-file-alt"></i>
                 <h3>Poster & Flyer Designer</h3>
                 <p>Design eye-catching posters and flyers for any occasion.</p>
-            </div>
-            <div class="tool-card">
+            </a>
+            <a href="login.html" class="tool-card">
                 <i class="fas fa-video"></i>
                 <h3>Video Creator</h3>
                 <p>Make engaging videos and animations with drag-and-drop ease.</p>
-            </div>
-            <div class="tool-card">
+            </a>
+            <a href="login.html" class="tool-card">
                 <i class="fas fa-font"></i>
                 <h3>Logo Maker</h3>
                 <p>Create a unique logo for your brand or project in seconds.</p>
-            </div>
-            <div class="tool-card">
+            </a>
+            <a href="login.html" class="tool-card">
                 <i class="fas fa-mobile-alt"></i>
                 <h3>Social Media Posts</h3>
                 <p>Design posts and stories for Instagram, Facebook, and more.</p>
-            </div>
+            </a>
         </div>
     </section>
     <div class="footer">
