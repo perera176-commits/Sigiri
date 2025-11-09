@@ -307,6 +307,23 @@
             const form = document.getElementById('emailForm');
             form.classList.toggle('active');
         }
+
+        // Handle form submission
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
+        });
+
+        // Handle social login buttons
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!this.classList.contains('email-btn')) {
+                    // Redirect to dashboard for social logins
+                    window.location.href = 'dashboard.html';
+                }
+            });
+        });
     </script>
 </body>
 </html>

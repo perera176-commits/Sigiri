@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand - SIGIRI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 70px;
+            background: white;
+            border-right: 1px solid #e5e5e5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+        }
+        .sidebar-menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            align-items: center;
+        }
+        .sidebar-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.7rem;
+            gap: 2px;
+        }
+        .sidebar-item i {
+            font-size: 1.3rem;
+            margin-bottom: 2px;
+        }
+        .sidebar-item:hover {
+            background: #f5f5f5;
+        }
+        .sidebar-item.active {
+            background: #f0f0ff;
+            color: #667eea;
+        }
+        .sidebar-item.create-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 20px;
+        }
+        .sidebar-item.create-btn:hover {
+            transform: scale(1.05);
+        }
+        .sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        /* Main Container */
+        .main-container {
+            margin-left: 70px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Content */
+        .content {
+            padding: 40px 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .page-header {
+            margin-bottom: 40px;
+        }
+        .page-header h1 {
+            font-size: 2rem;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .page-header p {
+            color: #666;
+            font-size: 1.05rem;
+        }
+
+        /* Brand Sections */
+        .brand-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .section-header h2 {
+            font-size: 1.3rem;
+            color: #222;
+            font-weight: 700;
+        }
+        .add-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .add-btn:hover {
+            background: #5568d3;
+        }
+
+        /* Brand Colors */
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 20px;
+        }
+        .color-item {
+            text-align: center;
+        }
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .color-swatch:hover {
+            transform: scale(1.05);
+        }
+        .color-code {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+        }
+        .add-color {
+            width: 100px;
+            height: 100px;
+            border: 2px dashed #ddd;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 2rem;
+            color: #999;
+        }
+        .add-color:hover {
+            border-color: #667eea;
+            color: #667eea;
+            background: #f9f9ff;
+        }
+
+        /* Brand Fonts */
+        .fonts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .font-item {
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .font-preview {
+            font-size: 1.8rem;
+            color: #222;
+        }
+        .font-name {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        .font-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .icon-btn-small {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .icon-btn-small:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        /* Brand Logos */
+        .logos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .logo-item {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        .logo-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        .logo-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+        .add-logo {
+            border: 2px dashed #ddd;
+            background: white;
+        }
+        .add-logo:hover {
+            background: #f9f9ff;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .empty-state i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        .empty-state h3 {
+            font-size: 1.3rem;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .empty-state p {
+            color: #999;
+            margin-bottom: 25px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px 1rem;
+            }
+            .colors-grid,
+            .logos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Left Sidebar -->
+    <div class="left-sidebar">
+        <div class="sidebar-logo">S</div>
+        <div class="sidebar-item create-btn">
+            <i class="fas fa-plus"></i>
+            <span>Create</span>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="sidebar-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="projects.html" class="sidebar-item">
+                <i class="fas fa-folder"></i>
+                <span>Projects</span>
+            </a>
+            <a href="templates.html" class="sidebar-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Templates</span>
+            </a>
+            <a href="brand.html" class="sidebar-item active">
+                <i class="fas fa-palette"></i>
+                <span>Brand</span>
+            </a>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="sidebar-item">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Content -->
+        <div class="content">
+            <div class="page-header">
+                <h1>Brand Kit</h1>
+                <p>Manage your brand colors, fonts, and logos in one place</p>
+            </div>
+
+            <!-- Brand Colors -->
+            <div class="brand-section">
+                <div class="section-header">
+                    <h2>Brand Colors</h2>
+                    <button class="add-btn">
+                        <i class="fas fa-plus"></i> Add Color
+                    </button>
+                </div>
+                <div class="colors-grid">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #667eea;"></div>
+                        <div class="color-code">#667eea</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #764ba2;"></div>
+                        <div class="color-code">#764ba2</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #43e97b;"></div>
+                        <div class="color-code">#43e97b</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #f5576c;"></div>
+                        <div class="color-code">#f5576c</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="add-color">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Fonts -->
+            <div class="brand-section">
+                <div class="section-header">
+                    <h2>Brand Fonts</h2>
+                    <button class="add-btn">
+                        <i class="fas fa-plus"></i> Add Font
+                    </button>
+                </div>
+                <div class="fonts-list">
+                    <div class="font-item">
+                        <div>
+                            <div class="font-preview" style="font-family: 'Segoe UI', sans-serif;">Aa</div>
+                            <div class="font-name">Segoe UI - Headings</div>
+                        </div>
+                        <div class="font-actions">
+                            <button class="icon-btn-small">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="icon-btn-small">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="font-item">
+                        <div>
+                            <div class="font-preview" style="font-family: Arial, sans-serif;">Aa</div>
+                            <div class="font-name">Arial - Body Text</div>
+                        </div>
+                        <div class="font-actions">
+                            <button class="icon-btn-small">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="icon-btn-small">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Logos -->
+            <div class="brand-section">
+                <div class="section-header">
+                    <h2>Brand Logos</h2>
+                    <button class="add-btn">
+                        <i class="fas fa-plus"></i> Upload Logo
+                    </button>
+                </div>
+                <div class="logos-grid">
+                    <div class="logo-item">
+                        <div class="logo-placeholder">
+                            S
+                        </div>
+                        <div class="logo-label">Primary Logo</div>
+                    </div>
+                    <div class="logo-item">
+                        <div class="logo-placeholder" style="background: white; border: 2px solid #667eea;">
+                            <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">S</span>
+                        </div>
+                        <div class="logo-label">Light Logo</div>
+                    </div>
+                    <div class="logo-item add-logo">
+                        <div class="logo-placeholder" style="background: transparent; border: 2px dashed #ddd;">
+                            <i class="fas fa-plus" style="color: #999;"></i>
+                        </div>
+                        <div class="logo-label">Add Logo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

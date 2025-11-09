@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SIGIRI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background Shapes */
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            z-index: 0;
+            animation: float 15s ease-in-out infinite;
+        }
+        body::before {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+        body::after {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: 7s;
+        }
+        .floating-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+        .shape1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            top: 50%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        .shape2 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            bottom: 20%;
+            right: 30%;
+            animation-delay: 10s;
+        }
+        
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 70px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+        }
+        .sidebar-menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            align-items: center;
+        }
+        .sidebar-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.7rem;
+            gap: 2px;
+            position: relative;
+        }
+        .sidebar-item i {
+            font-size: 1.3rem;
+            margin-bottom: 2px;
+        }
+        .sidebar-item:hover {
+            background: rgba(245, 245, 255, 0.6);
+        }
+        .sidebar-item.active {
+            background: rgba(102, 126, 234, 0.15);
+            color: #667eea;
+        }
+        .sidebar-item.create-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .sidebar-item.create-btn:hover {
+            transform: scale(1.05);
+        }
+        .sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        /* Main Container */
+        .main-container {
+            margin-left: 70px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Top Navbar */
+        .top-navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 0.6rem 2rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .trial-btn {
+            background: #fff9e6;
+            color: #856404;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+        }
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1rem;
+            color: #555;
+        }
+        .icon-btn:hover {
+            background: rgba(245, 245, 255, 0.5);
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Search Section */
+        .search-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 30px 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .search-bar input {
+            border: none;
+            background: none;
+            outline: none;
+            flex: 1;
+            font-size: 1rem;
+            color: #333;
+        }
+        .search-bar i {
+            color: #999;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        .search-bar .filter-icon {
+            margin-left: 12px;
+            margin-right: 0;
+            cursor: pointer;
+        }
+
+        /* Search Results */
+        .search-results {
+            max-width: 800px;
+            margin: 20px auto 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            max-height: 500px;
+            overflow-y: auto;
+            display: none;
+        }
+        .search-results.active {
+            display: block;
+        }
+        .search-result-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+        .search-result-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        .search-result-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .search-result-info h4 {
+            font-size: 1rem;
+            color: #222;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+        .search-result-info p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .search-no-results {
+            padding: 40px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        /* Quick Actions Icons */
+        .quick-actions-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 30px 3rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            flex-wrap: wrap;
+        }
+        .action-icon-item {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .action-icon-item:hover {
+            transform: translateY(-3px);
+        }
+        .action-icon-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.8rem;
+            color: white;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        .action-icon-item:hover .action-icon-circle {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            transform: translateY(-5px);
+        }
+        .action-icon-item:nth-child(1) .action-icon-circle {
+            background: linear-gradient(135deg, #a78bfa 0%, #6366f1 100%);
+        }
+        .action-icon-item:nth-child(2) .action-icon-circle {
+            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+        }
+        .action-icon-item:nth-child(3) .action-icon-circle {
+            background: linear-gradient(135deg, #fb7185 0%, #e11d48 100%);
+        }
+        .action-icon-item:nth-child(4) .action-icon-circle {
+            background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+        }
+        .action-icon-item:nth-child(5) .action-icon-circle {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+        }
+        .action-icon-item:nth-child(6) .action-icon-circle {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        }
+        .action-icon-item:nth-child(7) .action-icon-circle {
+            background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+        }
+        .action-icon-item:nth-child(8) .action-icon-circle {
+            background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+        }
+        .action-icon-item:nth-child(9) .action-icon-circle {
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+        }
+        .action-icon-item:nth-child(10) .action-icon-circle {
+            background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%);
+        }
+        .action-icon-item:nth-child(11) .action-icon-circle {
+            background: linear-gradient(135deg, #67e8f9 0%, #06b6d4 100%);
+        }
+        .action-icon-item:nth-child(12) .action-icon-circle {
+            background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%);
+        }
+        .new-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #8b5cf6;
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+        .action-icon-label {
+            font-size: 0.85rem;
+            color: #222;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 3rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: #222;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .view-all {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .view-all:hover {
+            color: #764ba2;
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .filter-select {
+            padding: 10px 18px;
+            border: 2px solid rgba(102, 126, 234, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #444;
+            font-weight: 500;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .filter-select:hover {
+            border-color: rgba(102, 126, 234, 0.4);
+            background: white;
+        }
+        .filter-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .filter-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(102, 126, 234, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .filter-btn:hover {
+            border-color: #667eea;
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+        .project-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.25);
+            border-color: rgba(102, 126, 234, 0.4);
+        }
+        .project-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+            opacity: 0.95;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .project-card:hover .project-thumbnail::before {
+            opacity: 1;
+        }
+        .project-card:nth-child(2) .project-thumbnail {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .project-card:nth-child(3) .project-thumbnail {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .project-card:nth-child(4) .project-thumbnail {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        .project-card:nth-child(5) .project-thumbnail {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        .project-info {
+            padding: 20px;
+            background: white;
+        }
+        .project-info h3 {
+            font-size: 1.1rem;
+            color: #222;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #999;
+            font-size: 0.85rem;
+        }
+        .project-meta i {
+            color: #ccc;
+            transition: color 0.2s;
+        }
+        .project-card:hover .project-meta i {
+            color: #667eea;
+        }
+
+        /* Create New Project Card */
+        .create-project-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border: 3px dashed rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+        .create-project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .create-project-card:hover::before {
+            opacity: 1;
+        }
+        .create-project-card:hover {
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+            transform: translateY(-8px);
+        }
+        .create-project-card i {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s;
+        }
+        .create-project-card:hover i {
+            transform: scale(1.1) rotate(90deg);
+        }
+        .create-project-card p {
+            color: #666;
+            font-weight: 600;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Templates Section */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .template-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+        .template-thumbnail {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #cfe2ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #667eea;
+        }
+        .template-card:nth-child(2) .template-thumbnail {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            color: #f5576c;
+        }
+        .template-card:nth-child(3) .template-thumbnail {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            color: #00bcd4;
+        }
+        .template-card:nth-child(4) .template-thumbnail {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: #4caf50;
+        }
+        .template-info {
+            padding: 12px;
+        }
+        .template-info h4 {
+            font-size: 0.95rem;
+            color: #222;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .search-bar {
+                width: 100%;
+            }
+            .main-content {
+                padding: 20px 1rem;
+            }
+            .welcome-section h1 {
+                font-size: 1.5rem;
+            }
+            .quick-actions {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Shapes -->
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    
+    <!-- Left Sidebar -->
+    <div class="left-sidebar">
+        <div class="sidebar-logo">S</div>
+        <div class="sidebar-item create-btn">
+            <i class="fas fa-plus"></i>
+            <span>Create</span>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="sidebar-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="projects.html" class="sidebar-item">
+                <i class="fas fa-folder"></i>
+                <span>Projects</span>
+            </a>
+            <a href="templates.html" class="sidebar-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Templates</span>
+            </a>
+            <a href="brand.html" class="sidebar-item">
+                <i class="fas fa-palette"></i>
+                <span>Brand</span>
+            </a>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="sidebar-item">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Top Navbar -->
+        <div class="top-navbar">
+            <div class="navbar-right">
+                <div class="icon-btn">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="user-avatar">SP</div>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search for any AI tools or converters">
+                <i class="fas fa-sliders-h filter-icon"></i>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <!-- Quick Actions Icons -->
+        <div class="quick-actions-icons">
+            <a href="converters.html" class="action-icon-item" style="text-decoration: none; color: inherit;">
+                <div class="action-icon-circle">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="new-badge">New</span>
+                </div>
+                <div class="action-icon-label">Converts</div>
+            </a>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-presentation"></i>
+                </div>
+                <div class="action-icon-label">Presentation</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="action-icon-label">Social media</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="action-icon-label">Video</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="action-icon-label">Doc</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-chalkboard"></i>
+                </div>
+                <div class="action-icon-label">Whiteboard</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-table"></i>
+                </div>
+                <div class="action-icon-label">Sheet</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="action-icon-label">Website</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="action-icon-label">Photo editor</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-ruler-combined"></i>
+                </div>
+                <div class="action-icon-label">Custom size</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="action-icon-label">Upload</div>
+            </div>
+            <div class="action-icon-item">
+                <div class="action-icon-circle">
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="action-icon-label">More</div>
+            </div>
+        </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Recent Projects -->
+        <div class="section-header">
+            <h2>Recents</h2>
+            <div class="filter-controls">
+                <select class="filter-select" id="ownerFilter">
+                    <option value="all">All Owners</option>
+                    <option value="me">Only Me</option>
+                    <option value="team">Team</option>
+                </select>
+                <select class="filter-select" id="typeFilter">
+                    <option value="all">All Types</option>
+                    <option value="video">Video</option>
+                    <option value="image">Image</option>
+                    <option value="presentation">Presentation</option>
+                    <option value="document">Document</option>
+                </select>
+                <button class="filter-btn" id="sortBtn" title="Sort by date">
+                    <i class="fas fa-sort-amount-down"></i>
+                </button>
+                <button class="filter-btn active" id="gridBtn" title="Grid view">
+                    <i class="fas fa-th"></i>
+                </button>
+                <button class="filter-btn" id="listBtn" title="List view">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+        </div>
+        <div class="projects-grid" id="projectsGrid">
+            <div class="create-project-card">
+                <i class="fas fa-plus-circle"></i>
+                <p>Create New Project</p>
+            </div>
+            <div class="project-card" data-type="video" data-owner="me" data-date="2">
+                <div class="project-thumbnail">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Marketing Video</h3>
+                    <div class="project-meta">
+                        <span>Edited 2 hours ago</span>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-type="image" data-owner="me" data-date="1">
+                <div class="project-thumbnail">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Social Media Post</h3>
+                    <div class="project-meta">
+                        <span>Edited yesterday</span>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-type="presentation" data-owner="team" data-date="3">
+                <div class="project-thumbnail">
+                    <i class="fas fa-presentation"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Business Pitch</h3>
+                    <div class="project-meta">
+                        <span>Edited 3 days ago</span>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-type="document" data-owner="me" data-date="7">
+                <div class="project-thumbnail">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Product Brochure</h3>
+                    <div class="project-meta">
+                        <span>Edited 1 week ago</span>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popular Templates -->
+        <div class="section-header">
+            <h2>Popular Templates</h2>
+            <a href="#" class="view-all">View all</a>
+        </div>
+        <div class="templates-grid">
+            <div class="template-card">
+                <div class="template-thumbnail">
+                    <i class="fas fa-instagram"></i>
+                </div>
+                <div class="template-info">
+                    <h4>Instagram Story</h4>
+                </div>
+            </div>
+            <div class="template-card">
+                <div class="template-thumbnail">
+                    <i class="fas fa-youtube"></i>
+                </div>
+                <div class="template-info">
+                    <h4>YouTube Thumbnail</h4>
+                </div>
+            </div>
+            <div class="template-card">
+                <div class="template-thumbnail">
+                    <i class="fas fa-facebook"></i>
+                </div>
+                <div class="template-info">
+                    <h4>Facebook Post</h4>
+                </div>
+            </div>
+            <div class="template-card">
+                <div class="template-thumbnail">
+                    <i class="fas fa-twitter"></i>
+                </div>
+                <div class="template-info">
+                    <h4>Twitter Header</h4>
+                </div>
+            </div>
+            <div class="template-card">
+                <div class="template-thumbnail">
+                    <i class="fas fa-linkedin"></i>
+                </div>
+                <div class="template-info">
+                    <h4>LinkedIn Banner</h4>
+                </div>
+            </div>
+            <div class="template-card">
+                <div class="template-thumbnail">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="template-info">
+                    <h4>Email Header</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Converter data
+        const converters = [
+            // Image Converters
+            { name: 'JPG to PNG', description: 'Convert JPG images to PNG format', category: 'Image', icon: 'fa-image', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+            { name: 'PNG to JPG', description: 'Convert PNG images to JPG format', category: 'Image', icon: 'fa-image', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+            { name: 'WEBP to PNG', description: 'Convert WEBP to PNG format', category: 'Image', icon: 'fa-file-image', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+            { name: 'PNG to SVG', description: 'Convert PNG to scalable SVG', category: 'Image', icon: 'fa-file-image', gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
+            { name: 'GIF to MP4', description: 'Convert animated GIF to video', category: 'Image', icon: 'fa-image', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+            { name: 'HEIC to JPG', description: 'Convert iPhone photos to JPG', category: 'Image', icon: 'fa-file-image', gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' },
+            
+            // Video Converters
+            { name: 'MP4 to AVI', description: 'Convert MP4 videos to AVI format', category: 'Video', icon: 'fa-video', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+            { name: 'MOV to MP4', description: 'Convert MOV to MP4 format', category: 'Video', icon: 'fa-video', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+            { name: 'AVI to MP4', description: 'Convert AVI to MP4 format', category: 'Video', icon: 'fa-film', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+            { name: 'MKV to MP4', description: 'Convert MKV to MP4 format', category: 'Video', icon: 'fa-video', gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
+            { name: 'WEBM to MP4', description: 'Convert WEBM to MP4 format', category: 'Video', icon: 'fa-film', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+            { name: 'MP4 to GIF', description: 'Convert video to animated GIF', category: 'Video', icon: 'fa-video', gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' },
+            
+            // Audio Converters
+            { name: 'MP3 to WAV', description: 'Convert MP3 to WAV format', category: 'Audio', icon: 'fa-music', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+            { name: 'WAV to MP3', description: 'Convert WAV to MP3 format', category: 'Audio', icon: 'fa-music', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+            { name: 'M4A to MP3', description: 'Convert M4A to MP3 format', category: 'Audio', icon: 'fa-headphones', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+            { name: 'FLAC to MP3', description: 'Convert FLAC to MP3 format', category: 'Audio', icon: 'fa-music', gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
+            { name: 'OGG to MP3', description: 'Convert OGG to MP3 format', category: 'Audio', icon: 'fa-headphones', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+            { name: 'AAC to MP3', description: 'Convert AAC to MP3 format', category: 'Audio', icon: 'fa-music', gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' },
+            
+            // Document Converters
+            { name: 'PDF to Word', description: 'Convert PDF to editable Word', category: 'Document', icon: 'fa-file-pdf', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+            { name: 'Word to PDF', description: 'Convert Word documents to PDF', category: 'Document', icon: 'fa-file-word', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+            { name: 'Excel to PDF', description: 'Convert Excel to PDF format', category: 'Document', icon: 'fa-file-excel', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+            { name: 'PPT to PDF', description: 'Convert PowerPoint to PDF', category: 'Document', icon: 'fa-file-powerpoint', gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
+            { name: 'JPG to PDF', description: 'Convert images to PDF', category: 'Document', icon: 'fa-file-image', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+            { name: 'PDF to JPG', description: 'Extract images from PDF', category: 'Document', icon: 'fa-file-alt', gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' },
+            
+            // Archive & Compression
+            { name: 'ZIP to RAR', description: 'Convert ZIP archives to RAR', category: 'Archive', icon: 'fa-file-archive', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+            { name: 'RAR to ZIP', description: 'Convert RAR archives to ZIP', category: 'Archive', icon: 'fa-file-archive', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+            { name: '7Z to ZIP', description: 'Convert 7Z to ZIP format', category: 'Archive', icon: 'fa-file-archive', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+            { name: 'Compress Images', description: 'Reduce image file size', category: 'Compression', icon: 'fa-compress', gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
+            { name: 'Compress PDF', description: 'Reduce PDF file size', category: 'Compression', icon: 'fa-compress', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+            { name: 'Compress Video', description: 'Reduce video file size', category: 'Compression', icon: 'fa-compress', gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' }
+        ];
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            if (searchTerm.length === 0) {
+                searchResults.classList.remove('active');
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            // Filter converters based on search term
+            const filteredConverters = converters.filter(converter => 
+                converter.name.toLowerCase().includes(searchTerm) ||
+                converter.description.toLowerCase().includes(searchTerm) ||
+                converter.category.toLowerCase().includes(searchTerm)
+            );
+
+            if (filteredConverters.length > 0) {
+                searchResults.innerHTML = filteredConverters.map(converter => `
+                    <a href="converters.html" class="search-result-item">
+                        <div class="search-result-icon" style="background: ${converter.gradient}">
+                            <i class="fas ${converter.icon}"></i>
+                        </div>
+                        <div class="search-result-info">
+                            <h4>${converter.name}</h4>
+                            <p>${converter.description}</p>
+                        </div>
+                    </a>
+                `).join('');
+                searchResults.classList.add('active');
+            } else {
+                searchResults.innerHTML = '<div class="search-no-results">No converters found. Try a different search term.</div>';
+                searchResults.classList.add('active');
+            }
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-section')) {
+                searchResults.classList.remove('active');
+            }
+        });
+
+        // Focus search results when clicking on search bar
+        searchInput.addEventListener('focus', function() {
+            if (this.value.trim().length > 0) {
+                searchResults.classList.add('active');
+            }
+        });
+
+        // Project Filtering and Sorting
+        const ownerFilter = document.getElementById('ownerFilter');
+        const typeFilter = document.getElementById('typeFilter');
+        const sortBtn = document.getElementById('sortBtn');
+        const gridBtn = document.getElementById('gridBtn');
+        const listBtn = document.getElementById('listBtn');
+        const projectsGrid = document.getElementById('projectsGrid');
+        let sortAscending = false;
+
+        function filterProjects() {
+            const ownerValue = ownerFilter.value;
+            const typeValue = typeFilter.value;
+            const projectCards = document.querySelectorAll('.project-card');
+
+            projectCards.forEach(card => {
+                const cardOwner = card.getAttribute('data-owner');
+                const cardType = card.getAttribute('data-type');
+                
+                const ownerMatch = ownerValue === 'all' || cardOwner === ownerValue;
+                const typeMatch = typeValue === 'all' || cardType === typeValue;
+
+                if (ownerMatch && typeMatch) {
+                    card.style.display = 'block';
+                    // Add fade in animation
+                    card.style.animation = 'fadeIn 0.5s ease-in';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function sortProjects() {
+            const projectCards = Array.from(document.querySelectorAll('.project-card'));
+            const createCard = document.querySelector('.create-project-card');
+            
+            // Sort by date
+            projectCards.sort((a, b) => {
+                const dateA = parseInt(a.getAttribute('data-date')) || 0;
+                const dateB = parseInt(b.getAttribute('data-date')) || 0;
+                return sortAscending ? dateA - dateB : dateB - dateA;
+            });
+
+            // Clear grid
+            projectsGrid.innerHTML = '';
+            
+            // Add create card first
+            projectsGrid.appendChild(createCard);
+            
+            // Add sorted cards
+            projectCards.forEach(card => {
+                projectsGrid.appendChild(card);
+            });
+
+            sortAscending = !sortAscending;
+            
+            // Update sort icon
+            const sortIcon = sortBtn.querySelector('i');
+            sortIcon.className = sortAscending ? 'fas fa-sort-amount-up' : 'fas fa-sort-amount-down';
+        }
+
+        function toggleView(viewType) {
+            if (viewType === 'grid') {
+                projectsGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+                gridBtn.classList.add('active');
+                listBtn.classList.remove('active');
+            } else {
+                projectsGrid.style.gridTemplateColumns = '1fr';
+                listBtn.classList.add('active');
+                gridBtn.classList.remove('active');
+            }
+        }
+
+        // Event listeners
+        ownerFilter.addEventListener('change', filterProjects);
+        typeFilter.addEventListener('change', filterProjects);
+        sortBtn.addEventListener('click', sortProjects);
+        gridBtn.addEventListener('click', () => toggleView('grid'));
+        listBtn.addEventListener('click', () => toggleView('list'));
+
+        // Add fadeIn animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+</html>

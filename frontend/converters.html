@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Converters - SIGIRI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background Shapes */
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            z-index: 0;
+            animation: float 15s ease-in-out infinite;
+        }
+        body::before {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            top: -200px;
+            right: -200px;
+        }
+        body::after {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: 7s;
+        }
+        .floating-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+        .shape1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            top: 50%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        .shape2 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            bottom: 20%;
+            right: 30%;
+            animation-delay: 10s;
+        }
+        
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 70px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+        }
+        .sidebar-menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            align-items: center;
+        }
+        .sidebar-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.7rem;
+            gap: 2px;
+        }
+        .sidebar-item i {
+            font-size: 1.3rem;
+            margin-bottom: 2px;
+        }
+        .sidebar-item:hover {
+            background: rgba(245, 245, 255, 0.6);
+        }
+        .sidebar-item.active {
+            background: rgba(102, 126, 234, 0.15);
+            color: #667eea;
+        }
+        .sidebar-item.create-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .sidebar-item.create-btn:hover {
+            transform: scale(1.05);
+        }
+        .sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        /* Main Container */
+        .main-container {
+            margin-left: 70px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Content */
+        .content {
+            padding: 40px 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        /* Converter Categories */
+        .category-section {
+            margin-bottom: 60px;
+        }
+        .category-header {
+            margin-bottom: 30px;
+        }
+        .category-header h2 {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .category-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        /* Converter Grid */
+        .converter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .converter-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .converter-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        .converter-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            color: white;
+            position: relative;
+        }
+        .converter-card h3 {
+            font-size: 1.2rem;
+            color: #222;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .converter-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* Gradient Colors for Icons */
+        .converter-card:nth-child(6n+1) .converter-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .converter-card:nth-child(6n+2) .converter-icon {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .converter-card:nth-child(6n+3) .converter-icon {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .converter-card:nth-child(6n+4) .converter-icon {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        .converter-card:nth-child(6n+5) .converter-icon {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        .converter-card:nth-child(6n) .converter-icon {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px 1rem;
+            }
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            .converter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Shapes -->
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    
+    <!-- Left Sidebar -->
+    <div class="left-sidebar">
+        <div class="sidebar-logo">S</div>
+        <div class="sidebar-item create-btn">
+            <i class="fas fa-plus"></i>
+            <span>Create</span>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="sidebar-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="projects.html" class="sidebar-item">
+                <i class="fas fa-folder"></i>
+                <span>Projects</span>
+            </a>
+            <a href="templates.html" class="sidebar-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Templates</span>
+            </a>
+            <a href="brand.html" class="sidebar-item">
+                <i class="fas fa-palette"></i>
+                <span>Brand</span>
+            </a>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="sidebar-item">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Content -->
+        <div class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>File Converters</h1>
+                <p>Convert files between formats effortlessly. Fast, free, and secure.</p>
+            </div>
+
+            <!-- Image Converters -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h2>Image Converters</h2>
+                    <p>Convert images between different formats with quality preservation</p>
+                </div>
+                <div class="converter-grid">
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3>JPG to PNG</h3>
+                        <p>Convert JPG images to PNG format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3>PNG to JPG</h3>
+                        <p>Convert PNG images to JPG format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>WEBP to PNG</h3>
+                        <p>Convert WEBP to PNG format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>PNG to SVG</h3>
+                        <p>Convert PNG to scalable SVG</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3>GIF to MP4</h3>
+                        <p>Convert animated GIF to video</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>HEIC to JPG</h3>
+                        <p>Convert iPhone photos to JPG</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Converters -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h2>Video Converters</h2>
+                    <p>Convert videos to different formats and resolutions</p>
+                </div>
+                <div class="converter-grid">
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>MP4 to AVI</h3>
+                        <p>Convert MP4 videos to AVI format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>MOV to MP4</h3>
+                        <p>Convert MOV to MP4 format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3>AVI to MP4</h3>
+                        <p>Convert AVI to MP4 format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>MKV to MP4</h3>
+                        <p>Convert MKV to MP4 format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3>WEBM to MP4</h3>
+                        <p>Convert WEBM to MP4 format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>MP4 to GIF</h3>
+                        <p>Convert video to animated GIF</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Converters -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h2>Audio Converters</h2>
+                    <p>Convert audio files between formats</p>
+                </div>
+                <div class="converter-grid">
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3>MP3 to WAV</h3>
+                        <p>Convert MP3 to WAV format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3>WAV to MP3</h3>
+                        <p>Convert WAV to MP3 format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <h3>M4A to MP3</h3>
+                        <p>Convert M4A to MP3 format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3>FLAC to MP3</h3>
+                        <p>Convert FLAC to MP3 format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <h3>OGG to MP3</h3>
+                        <p>Convert OGG to MP3 format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3>AAC to MP3</h3>
+                        <p>Convert AAC to MP3 format</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Converters -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h2>Document Converters</h2>
+                    <p>Convert documents and presentations to different formats</p>
+                </div>
+                <div class="converter-grid">
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3>PDF to Word</h3>
+                        <p>Convert PDF to editable Word</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <h3>Word to PDF</h3>
+                        <p>Convert Word documents to PDF</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-excel"></i>
+                        </div>
+                        <h3>Excel to PDF</h3>
+                        <p>Convert Excel to PDF format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-powerpoint"></i>
+                        </div>
+                        <h3>PPT to PDF</h3>
+                        <p>Convert PowerPoint to PDF</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>JPG to PDF</h3>
+                        <p>Convert images to PDF</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>PDF to JPG</h3>
+                        <p>Extract images from PDF</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Archive Converters -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h2>Archive & Compression</h2>
+                    <p>Compress and convert archive formats</p>
+                </div>
+                <div class="converter-grid">
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-archive"></i>
+                        </div>
+                        <h3>ZIP to RAR</h3>
+                        <p>Convert ZIP archives to RAR</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-archive"></i>
+                        </div>
+                        <h3>RAR to ZIP</h3>
+                        <p>Convert RAR archives to ZIP</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-archive"></i>
+                        </div>
+                        <h3>7Z to ZIP</h3>
+                        <p>Convert 7Z to ZIP format</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-compress"></i>
+                        </div>
+                        <h3>Compress Images</h3>
+                        <p>Reduce image file size</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-compress"></i>
+                        </div>
+                        <h3>Compress PDF</h3>
+                        <p>Reduce PDF file size</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-compress"></i>
+                        </div>
+                        <h3>Compress Video</h3>
+                        <p>Reduce video file size</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
