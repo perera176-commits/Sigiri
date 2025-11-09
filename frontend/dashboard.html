@@ -492,34 +492,52 @@
 
         /* Projects Grid */
         .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 28px;
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
             margin-bottom: 60px;
+            padding-bottom: 20px;
+            scroll-behavior: smooth;
+        }
+        .projects-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+        .projects-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+        .projects-grid::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
         }
         .project-card {
+            min-width: 280px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(15px);
             border-radius: 16px;
-            overflow: hidden;
+            overflow: visible;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
         }
         .project-card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 50px rgba(102, 126, 234, 0.25);
             border-color: rgba(102, 126, 234, 0.4);
         }
+        .project-card:hover .project-options {
+            opacity: 1;
+        }
         .project-thumbnail {
             width: 100%;
-            height: 200px;
+            height: 180px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: white;
             opacity: 0.95;
             position: relative;
@@ -551,12 +569,107 @@
         .project-card:nth-child(5) .project-thumbnail {
             background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
         }
+        
+        /* Project Options Menu */
+        .project-options {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+        .option-btn {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #444;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .option-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: scale(1.1);
+        }
+        .option-btn i {
+            font-size: 0.9rem;
+        }
+        .more-options-btn {
+            position: relative;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 45px;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            padding: 8px;
+            min-width: 200px;
+            display: none;
+            z-index: 100;
+        }
+        .dropdown-menu.active {
+            display: block;
+            animation: dropdownFadeIn 0.3s ease-out;
+        }
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .dropdown-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #333;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .dropdown-item:hover {
+            background: #f5f5ff;
+            color: #667eea;
+        }
+        .dropdown-item i {
+            width: 20px;
+            font-size: 0.95rem;
+        }
+        .dropdown-divider {
+            height: 1px;
+            background: #e5e5e5;
+            margin: 8px 0;
+        }
+        .dropdown-item.danger {
+            color: #f44336;
+        }
+        .dropdown-item.danger:hover {
+            background: #ffebee;
+        }
+        
         .project-info {
-            padding: 20px;
+            padding: 18px;
             background: white;
         }
         .project-info h3 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #222;
             margin-bottom: 8px;
             font-weight: 600;
@@ -578,6 +691,7 @@
 
         /* Create New Project Card */
         .create-project-card {
+            min-width: 280px;
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(15px);
             border: 3px dashed rgba(102, 126, 234, 0.3);
@@ -588,7 +702,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 280px;
+            min-height: 260px;
             position: relative;
             overflow: hidden;
         }
@@ -881,6 +995,50 @@
                 <p>Create New Project</p>
             </div>
             <div class="project-card" data-type="video" data-owner="me" data-date="2">
+                <div class="project-options">
+                    <button class="option-btn star-btn" title="Add to favorites">
+                        <i class="far fa-star"></i>
+                    </button>
+                    <button class="option-btn more-options-btn" title="More options">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Open in a new tab</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Details</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="far fa-copy"></i>
+                                <span>Make a copy</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-folder"></i>
+                                <span>Move</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-download"></i>
+                                <span>Download</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-share-alt"></i>
+                                <span>Share</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-link"></i>
+                                <span>Copy link</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item danger">
+                                <i class="fas fa-trash"></i>
+                                <span>Move to Trash</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
                 <div class="project-thumbnail">
                     <i class="fas fa-video"></i>
                 </div>
@@ -888,11 +1046,54 @@
                     <h3>Marketing Video</h3>
                     <div class="project-meta">
                         <span>Edited 2 hours ago</span>
-                        <i class="fas fa-ellipsis-h"></i>
                     </div>
                 </div>
             </div>
             <div class="project-card" data-type="image" data-owner="me" data-date="1">
+                <div class="project-options">
+                    <button class="option-btn star-btn" title="Add to favorites">
+                        <i class="far fa-star"></i>
+                    </button>
+                    <button class="option-btn more-options-btn" title="More options">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Open in a new tab</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Details</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="far fa-copy"></i>
+                                <span>Make a copy</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-folder"></i>
+                                <span>Move</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-download"></i>
+                                <span>Download</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-share-alt"></i>
+                                <span>Share</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-link"></i>
+                                <span>Copy link</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item danger">
+                                <i class="fas fa-trash"></i>
+                                <span>Move to Trash</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
                 <div class="project-thumbnail">
                     <i class="fas fa-image"></i>
                 </div>
@@ -900,11 +1101,54 @@
                     <h3>Social Media Post</h3>
                     <div class="project-meta">
                         <span>Edited yesterday</span>
-                        <i class="fas fa-ellipsis-h"></i>
                     </div>
                 </div>
             </div>
             <div class="project-card" data-type="presentation" data-owner="team" data-date="3">
+                <div class="project-options">
+                    <button class="option-btn star-btn" title="Add to favorites">
+                        <i class="far fa-star"></i>
+                    </button>
+                    <button class="option-btn more-options-btn" title="More options">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Open in a new tab</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Details</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="far fa-copy"></i>
+                                <span>Make a copy</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-folder"></i>
+                                <span>Move</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-download"></i>
+                                <span>Download</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-share-alt"></i>
+                                <span>Share</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-link"></i>
+                                <span>Copy link</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item danger">
+                                <i class="fas fa-trash"></i>
+                                <span>Move to Trash</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
                 <div class="project-thumbnail">
                     <i class="fas fa-presentation"></i>
                 </div>
@@ -912,11 +1156,54 @@
                     <h3>Business Pitch</h3>
                     <div class="project-meta">
                         <span>Edited 3 days ago</span>
-                        <i class="fas fa-ellipsis-h"></i>
                     </div>
                 </div>
             </div>
             <div class="project-card" data-type="document" data-owner="me" data-date="7">
+                <div class="project-options">
+                    <button class="option-btn star-btn" title="Add to favorites">
+                        <i class="far fa-star"></i>
+                    </button>
+                    <button class="option-btn more-options-btn" title="More options">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Open in a new tab</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Details</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="far fa-copy"></i>
+                                <span>Make a copy</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-folder"></i>
+                                <span>Move</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-download"></i>
+                                <span>Download</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-share-alt"></i>
+                                <span>Share</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-link"></i>
+                                <span>Copy link</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item danger">
+                                <i class="fas fa-trash"></i>
+                                <span>Move to Trash</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
                 <div class="project-thumbnail">
                     <i class="fas fa-file-pdf"></i>
                 </div>
@@ -924,7 +1211,6 @@
                     <h3>Product Brochure</h3>
                     <div class="project-meta">
                         <span>Edited 1 week ago</span>
-                        <i class="fas fa-ellipsis-h"></i>
                     </div>
                 </div>
             </div>
@@ -1173,7 +1459,77 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Dropdown menu functionality
+        const moreOptionsBtns = document.querySelectorAll('.more-options-btn');
+        
+        moreOptionsBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const dropdown = this.querySelector('.dropdown-menu');
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    if (menu !== dropdown) {
+                        menu.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('active');
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.more-options-btn')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+            }
+        });
+
+        // Star button functionality
+        const starBtns = document.querySelectorAll('.star-btn');
+        
+        starBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const icon = this.querySelector('i');
+                
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = '#ffc107';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    icon.style.color = '';
+                }
+            });
+        });
+
+        // Dropdown item actions
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const action = this.textContent.trim();
+                console.log('Action selected:', action);
+                
+                // Close the dropdown
+                this.closest('.dropdown-menu').classList.remove('active');
+                
+                // Here you can add specific functionality for each action
+                if (action === 'Move to Trash') {
+                    if (confirm('Are you sure you want to move this to trash?')) {
+                        // Handle delete
+                        console.log('Item moved to trash');
+                    }
+                }
+            });
+        });
     </script>
+
 
 </body>
 </html>
