@@ -89,16 +89,53 @@
             letter-spacing: 3px;
             font-family: 'Trebuchet MS', sans-serif;
             text-transform: uppercase;
+            flex-shrink: 0;
         }
-        .navbar nav a {
-            margin: 0 1rem;
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+                nav a {
             text-decoration: none;
             color: #222;
             font-weight: 500;
             transition: color 0.2s;
+            font-size: 1rem;
         }
-        .navbar nav a:hover {
-            color: #3a8ee6;
+        nav a:hover {
+            color: #667eea;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+        .nav-btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-size: 1rem;
+            border: none;
+        }
+        .btn-login {
+            background: transparent;
+            color: #222;
+        }
+        .btn-login:hover {
+            background: #f5f5f5;
+        }
+        .btn-signup {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
         .hero {
             text-align: center;
@@ -254,13 +291,16 @@
     </div>
     <div class="navbar">
         <div class="logo">SIGIRI</div>
-        <nav>
-            <a href="login.html">Home</a>
-            <a href="login.html">Templates</a>
-            <a href="login.html">Features</a>
-            <a href="login.html">Pricing</a>
-            <a href="login.html">Login</a>
+                <nav>
+            <a href="#features">Features</a>
+            <a href="#templates">Templates</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#learn">Learn</a>
         </nav>
+        <div class="nav-actions">
+            <a href="login.html" class="nav-btn btn-login">Log in</a>
+            <a href="login.html" class="nav-btn btn-signup">Sign up</a>
+        </div>
     </div>
     <section class="hero">
         <h1>AI-Powered Design Studio</h1>
