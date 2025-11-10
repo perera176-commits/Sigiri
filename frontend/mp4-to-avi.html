@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP4 to AVI Converter - SIGIRI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, rgba(250, 112, 154, 0.1) 0%, rgba(254, 225, 64, 0.1) 100%);
+            backdrop-filter: blur(100px);
+            min-height: 100vh;
+            display: flex;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(250, 112, 154, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(254, 225, 64, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(67, 233, 123, 0.1) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        .floating-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            z-index: 0;
+            animation: float 25s ease-in-out infinite, pulse 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .shape1 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(250, 112, 154, 0.25) 0%, rgba(254, 225, 64, 0.25) 100%);
+            top: 50%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        .shape2 {
+            width: 450px;
+            height: 450px;
+            background: linear-gradient(135deg, rgba(67, 233, 123, 0.25) 0%, rgba(56, 249, 215, 0.25) 100%);
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 10s;
+        }
+        
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 70px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(30px);
+            border-right: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05);
+        }
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+        }
+        .sidebar-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.7rem;
+            gap: 2px;
+            margin-bottom: 10px;
+        }
+        .sidebar-item i {
+            font-size: 1.3rem;
+        }
+        .sidebar-item:hover {
+            background: rgba(245, 245, 255, 0.6);
+        }
+        
+        /* Main Container */
+        .main-container {
+            margin-left: 70px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Content */
+        .content {
+            padding: 40px 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header */
+        .converter-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .converter-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+        .converter-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Upload Area */
+        .upload-area {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(25px);
+            border: 3px dashed rgba(250, 112, 154, 0.3);
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+        .upload-area:hover {
+            border-color: #fa709a;
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(250, 112, 154, 0.2);
+        }
+        .upload-area i {
+            font-size: 4rem;
+            color: #fa709a;
+            margin-bottom: 20px;
+        }
+        .upload-area h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .upload-area p {
+            color: #999;
+            font-size: 0.95rem;
+        }
+        .file-input {
+            display: none;
+        }
+        
+        /* Convert Button */
+        .convert-btn {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            border: none;
+            padding: 16px 48px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(250, 112, 154, 0.3);
+        }
+        .convert-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(250, 112, 154, 0.4);
+        }
+        .convert-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Features */
+        .features {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(25px);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #fa709a;
+            margin-bottom: 16px;
+        }
+        .feature-card h4 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Shapes -->
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    
+    <!-- Left Sidebar -->
+    <div class="left-sidebar">
+        <div class="sidebar-logo">S</div>
+        <a href="dashboard.html" class="sidebar-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="converters.html" class="sidebar-item">
+            <i class="fas fa-exchange-alt"></i>
+            <span>Converts</span>
+        </a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <div class="content">
+            <!-- Header -->
+            <div class="converter-header">
+                <h1>MP4 to AVI Converter</h1>
+                <p>Convert MP4 videos to AVI format for compatibility with older devices</p>
+            </div>
+
+            <!-- Upload Area -->
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-video"></i>
+                <h3>Drop your MP4 files here</h3>
+                <p>or click to browse</p>
+                <input type="file" id="fileInput" class="file-input" accept=".mp4" multiple>
+            </div>
+
+            <!-- Convert Button -->
+            <button class="convert-btn" disabled>
+                <i class="fas fa-sync-alt"></i> Convert to AVI
+            </button>
+
+            <!-- Features -->
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                    <h4>Wide Compatibility</h4>
+                    <p>AVI works on virtually all devices and players</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Fast Conversion</h4>
+                    <p>Process your videos quickly without quality loss</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-sliders-h"></i>
+                    <h4>Custom Settings</h4>
+                    <p>Adjust bitrate, resolution, and codec options</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const convertBtn = document.querySelector('.convert-btn');
+        const uploadArea = document.querySelector('.upload-area');
+
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                convertBtn.disabled = false;
+                uploadArea.querySelector('h3').textContent = `${this.files.length} file(s) selected`;
+                uploadArea.querySelector('p').textContent = 'Click "Convert to AVI" to start';
+            }
+        });
+
+        convertBtn.addEventListener('click', function() {
+            if (fileInput.files.length > 0) {
+                alert('Conversion feature will be implemented with backend integration');
+            }
+        });
+    </script>
+</body>
+</html>

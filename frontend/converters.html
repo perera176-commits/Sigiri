@@ -229,46 +229,48 @@
         /* Converter Grid */
         .converter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
         }
         .converter-card {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(25px);
-            border-radius: 12px;
-            padding: 18px;
+            border-radius: 10px;
+            padding: 14px;
             cursor: pointer;
             transition: all 0.3s;
             border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
             text-align: center;
+            text-decoration: none;
+            display: block;
         }
         .converter-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
             border-color: rgba(102, 126, 234, 0.5);
         }
         .converter-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px;
-            font-size: 1.6rem;
+            margin: 0 auto 10px;
+            font-size: 1.4rem;
             color: white;
             position: relative;
         }
         .converter-card h3 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #222;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             font-weight: 700;
         }
         .converter-card p {
             color: #666;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             line-height: 1.3;
         }
         
@@ -364,20 +366,20 @@
                     <p>Convert images between different formats with quality preservation</p>
                 </div>
                 <div class="converter-grid">
-                    <div class="converter-card">
+                    <a href="jpg-to-png.html" class="converter-card">
                         <div class="converter-icon">
                             <i class="fas fa-image"></i>
                         </div>
                         <h3>JPG to PNG</h3>
                         <p>Convert JPG images to PNG format</p>
-                    </div>
-                    <div class="converter-card">
+                    </a>
+                    <a href="png-to-jpg.html" class="converter-card">
                         <div class="converter-icon">
                             <i class="fas fa-image"></i>
                         </div>
                         <h3>PNG to JPG</h3>
                         <p>Convert PNG images to JPG format</p>
-                    </div>
+                    </a>
                     <div class="converter-card">
                         <div class="converter-icon">
                             <i class="fas fa-file-image"></i>
@@ -465,13 +467,13 @@
                     <p>Convert videos to different formats and resolutions</p>
                 </div>
                 <div class="converter-grid">
-                    <div class="converter-card">
+                    <a href="mp4-to-avi.html" class="converter-card">
                         <div class="converter-icon">
                             <i class="fas fa-video"></i>
                         </div>
                         <h3>MP4 to AVI</h3>
                         <p>Convert MP4 videos to AVI format</p>
-                    </div>
+                    </a>
                     <div class="converter-card">
                         <div class="converter-icon">
                             <i class="fas fa-video"></i>
@@ -566,13 +568,13 @@
                     <p>Convert audio files between formats</p>
                 </div>
                 <div class="converter-grid">
-                    <div class="converter-card">
+                    <a href="mp3-to-wav.html" class="converter-card">
                         <div class="converter-icon">
                             <i class="fas fa-music"></i>
                         </div>
                         <h3>MP3 to WAV</h3>
                         <p>Convert MP3 to WAV format</p>
-                    </div>
+                    </a>
                     <div class="converter-card">
                         <div class="converter-icon">
                             <i class="fas fa-music"></i>
@@ -667,13 +669,13 @@
                     <p>Convert documents and presentations to different formats</p>
                 </div>
                 <div class="converter-grid">
-                    <div class="converter-card">
+                    <a href="pdf-to-word.html" class="converter-card">
                         <div class="converter-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
                         <h3>PDF to Word</h3>
                         <p>Convert PDF to editable Word</p>
-                    </div>
+                    </a>
                     <div class="converter-card">
                         <div class="converter-icon">
                             <i class="fas fa-file-word"></i>
