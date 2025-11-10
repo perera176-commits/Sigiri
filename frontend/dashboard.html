@@ -1772,35 +1772,49 @@
         });
 
         // Create Modal functionality
-        const createBtn = document.querySelector('.sidebar-item.create-btn');
-        const createModal = document.getElementById('createModal');
-        const modalClose = document.querySelector('.modal-close');
+        document.addEventListener('DOMContentLoaded', function() {
+            const createBtn = document.querySelector('.sidebar-item.create-btn');
+            const createModal = document.getElementById('createModal');
+            const modalClose = document.querySelector('.modal-close');
 
-        createBtn.addEventListener('click', function() {
-            createModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
+            if (createBtn && createModal && modalClose) {
+                createBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Create button clicked');
+                    createModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
 
-        modalClose.addEventListener('click', function() {
-            createModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+                modalClose.addEventListener('click', function() {
+                    console.log('Close button clicked');
+                    createModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
 
-        createModal.addEventListener('click', function(e) {
-            if (e.target === createModal) {
-                createModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                createModal.addEventListener('click', function(e) {
+                    if (e.target === createModal) {
+                        console.log('Modal backdrop clicked');
+                        createModal.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+
+                // Modal sidebar navigation
+                const modalSidebarItems = document.querySelectorAll('.modal-sidebar-item');
+                modalSidebarItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        modalSidebarItems.forEach(i => i.classList.remove('active'));
+                        this.classList.add('active');
+                        // Here you can add logic to show different content based on selection
+                    });
+                });
+            } else {
+                console.error('Modal elements not found:', {
+                    createBtn: !!createBtn,
+                    createModal: !!createModal,
+                    modalClose: !!modalClose
+                });
             }
-        });
-
-        // Modal sidebar navigation
-        const modalSidebarItems = document.querySelectorAll('.modal-sidebar-item');
-        modalSidebarItems.forEach(item => {
-            item.addEventListener('click', function() {
-                modalSidebarItems.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-                // Here you can add logic to show different content based on selection
-            });
         });
     </script>
 
