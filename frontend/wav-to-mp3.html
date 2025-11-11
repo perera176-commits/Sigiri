@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WAV to MP3 Converter - SIGIRI</title>
+    <!-- Google AdSense - Replace with your actual Publisher ID -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -243,6 +247,54 @@
             color: #666;
             font-size: 0.9rem;
         }
+    
+        /* Ad Containers */
+        .ad-container {
+            background: rgba(248, 249, 250, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px dashed rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 25px 0;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .ad-label {
+            font-size: 0.75rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .ad-header {
+            margin-bottom: 25px;
+        }
+        
+        .ad-header .ad-container {
+            max-width: 970px;
+            margin: 0 auto 25px;
+        }
+        
+        .ad-in-content {
+            margin: 35px 0;
+        }
+        
+        .ad-footer {
+            margin-top: 35px;
+        }
+        
+        /* Premium User - Hide Ads */
+        body.premium-user .ad-container {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -307,6 +359,24 @@
     </div>
 
     <script>
+        // Premium User Detection (Add this to check membership status)
+        function checkPremiumStatus() {
+            // Example: Check if user has premium membership
+            // This should connect to your backend/authentication system
+            const isPremium = localStorage.getItem('isPremiumUser') === 'true';
+            
+            if (isPremium) {
+                document.body.classList.add('premium-user');
+                console.log('Premium user - Ads hidden');
+            } else {
+                console.log('Free user - Ads shown');
+            }
+        }
+        
+        // Call on page load
+        checkPremiumStatus();
+        
+
         const fileInput = document.getElementById('fileInput');
         const convertBtn = document.querySelector('.convert-btn');
         const uploadArea = document.querySelector('.upload-area');
