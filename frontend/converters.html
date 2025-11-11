@@ -208,6 +208,93 @@
             color: #555;
         }
 
+        /* Search Bar */
+        .search-container {
+            max-width: 900px;
+            margin: 0 auto 45px;
+            position: relative;
+        }
+        .search-wrapper {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(30px);
+            border-radius: 60px;
+            padding: 8px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+        .search-wrapper:focus-within {
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.25);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: translateY(-2px);
+        }
+        .search-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 0 10px 0 25px;
+        }
+        .search-icon {
+            font-size: 1.8rem;
+            color: #667eea;
+            min-width: 30px;
+        }
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1.15rem;
+            padding: 20px 10px;
+            background: transparent;
+            color: #333;
+            font-weight: 500;
+        }
+        .search-input::placeholder {
+            color: #999;
+            font-weight: 400;
+        }
+        .search-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .search-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        .search-suggestions {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .search-suggestions span {
+            color: #666;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+        .search-tag {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        .search-tag:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-1px);
+        }
+
         /* Converter Categories */
         .category-section {
             margin-bottom: 45px;
@@ -357,6 +444,31 @@
             <div class="page-header">
                 <h1>File Converters</h1>
                 <p>Convert files between formats effortlessly. Fast, free, and secure.</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            id="searchInput"
+                            placeholder="Search for converters... (e.g., JPG to PNG, PDF to Word)"
+                        >
+                        <button class="search-btn" id="searchBtn">
+                            <i class="fas fa-arrow-right"></i> Search
+                        </button>
+                    </div>
+                </div>
+                <div class="search-suggestions">
+                    <span>Popular:</span>
+                    <span class="search-tag" onclick="quickSearch('PDF to Word')">PDF to Word</span>
+                    <span class="search-tag" onclick="quickSearch('JPG to PNG')">JPG to PNG</span>
+                    <span class="search-tag" onclick="quickSearch('MP4 to AVI')">MP4 to AVI</span>
+                    <span class="search-tag" onclick="quickSearch('MP3 to WAV')">MP3 to WAV</span>
+                </div>
             </div>
 
             <!-- Image Converters -->
@@ -858,5 +970,76 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const converterCards = document.querySelectorAll('.converter-card');
+        const categorySections = document.querySelectorAll('.category-section');
+
+        function performSearch(query) {
+            const searchTerm = query.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                // Show all if search is empty
+                converterCards.forEach(card => card.style.display = 'block');
+                categorySections.forEach(section => section.style.display = 'block');
+                return;
+            }
+
+            let hasVisibleCards = {};
+            categorySections.forEach(section => {
+                hasVisibleCards[section.querySelector('.category-header h2').textContent] = false;
+            });
+
+            converterCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    // Mark parent category as having visible cards
+                    const categorySection = card.closest('.category-section');
+                    if (categorySection) {
+                        const categoryName = categorySection.querySelector('.category-header h2').textContent;
+                        hasVisibleCards[categoryName] = true;
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Hide empty categories
+            categorySections.forEach(section => {
+                const categoryName = section.querySelector('.category-header h2').textContent;
+                if (hasVisibleCards[categoryName]) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+
+        searchBtn.addEventListener('click', () => {
+            performSearch(searchInput.value);
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+            }
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            performSearch(e.target.value);
+        });
+
+        function quickSearch(term) {
+            searchInput.value = term;
+            performSearch(term);
+            searchInput.focus();
+        }
+    </script>
 </body>
 </html>
