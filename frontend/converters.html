@@ -538,6 +538,132 @@
             background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
         }
 
+        /* Category Navigation Cards - Professional Style */
+        .category-nav-section {
+            max-width: 1000px;
+            margin: 0 auto 50px;
+        }
+        .category-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .category-nav-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+            backdrop-filter: blur(30px);
+            border-radius: 16px;
+            padding: 30px 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .category-nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+        .category-nav-card:hover::before {
+            opacity: 1;
+        }
+        .category-nav-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(102, 126, 234, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        .category-nav-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+        .category-nav-card:hover .category-nav-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+        }
+        .category-nav-card:nth-child(1) .category-nav-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .category-nav-card:nth-child(2) .category-nav-icon {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .category-nav-card:nth-child(3) .category-nav-icon {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .category-nav-card:nth-child(4) .category-nav-icon {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        .category-nav-card:nth-child(5) .category-nav-icon {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        .category-nav-card:nth-child(6) .category-nav-icon {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        }
+        .category-nav-card h3 {
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.3px;
+        }
+        .category-nav-card p {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        /* Responsive for Category Nav */
+        @media (max-width: 992px) {
+            .category-nav-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+        @media (max-width: 576px) {
+            .category-nav-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .category-nav-card {
+                padding: 25px 20px;
+            }
+            .category-nav-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .content {
@@ -779,49 +905,49 @@
             </div>
 
             <!-- Category Hubs -->
-            <div class="category-section">
+            <div class="category-section category-nav-section">
                 <div class="category-header">
                     <h2>🌟 Popular Converter Categories</h2>
                     <p>Choose a category to explore all available converters</p>
                 </div>
-                <div class="converter-grid">
-                    <a href="#image-converters" class="converter-card" onclick="document.getElementById('image-converters').scrollIntoView({behavior: 'smooth'});">
-                        <div class="converter-icon">
+                <div class="category-nav-grid">
+                    <a href="#image-converters" class="category-nav-card" onclick="document.getElementById('image-converters').scrollIntoView({behavior: 'smooth'});">
+                        <div class="category-nav-icon">
                             <i class="fas fa-image"></i>
                         </div>
                         <h3>Image Converters</h3>
                         <p>Convert images between different formats</p>
                     </a>
-                    <a href="#video-converters" class="converter-card" onclick="document.getElementById('video-converters').scrollIntoView({behavior: 'smooth'});">
-                        <div class="converter-icon">
+                    <a href="#video-converters" class="category-nav-card" onclick="document.getElementById('video-converters').scrollIntoView({behavior: 'smooth'});">
+                        <div class="category-nav-icon">
                             <i class="fas fa-video"></i>
                         </div>
                         <h3>Video Converters</h3>
                         <p>Convert videos to different formats</p>
                     </a>
-                    <a href="#audio-converters" class="converter-card" onclick="document.getElementById('audio-converters').scrollIntoView({behavior: 'smooth'});">
-                        <div class="converter-icon">
+                    <a href="#audio-converters" class="category-nav-card" onclick="document.getElementById('audio-converters').scrollIntoView({behavior: 'smooth'});">
+                        <div class="category-nav-icon">
                             <i class="fas fa-music"></i>
                         </div>
                         <h3>Audio Converters</h3>
                         <p>Convert audio files and music formats</p>
                     </a>
-                    <a href="#document-converters" class="converter-card" onclick="document.getElementById('document-converters').scrollIntoView({behavior: 'smooth'});">
-                        <div class="converter-icon">
+                    <a href="#document-converters" class="category-nav-card" onclick="document.getElementById('document-converters').scrollIntoView({behavior: 'smooth'});">
+                        <div class="category-nav-icon">
                             <i class="fas fa-file-alt"></i>
                         </div>
                         <h3>Document Converters</h3>
                         <p>Convert documents and office files</p>
                     </a>
-                    <a href="#archive-converters" class="converter-card" onclick="document.getElementById('archive-converters').scrollIntoView({behavior: 'smooth'});">
-                        <div class="converter-icon">
+                    <a href="#archive-converters" class="category-nav-card" onclick="document.getElementById('archive-converters').scrollIntoView({behavior: 'smooth'});">
+                        <div class="category-nav-icon">
                             <i class="fas fa-file-archive"></i>
                         </div>
                         <h3>Archive & Compression</h3>
                         <p>Compress and extract archive files</p>
                     </a>
-                    <a href="#security-tools" class="converter-card" onclick="document.getElementById('security-tools').scrollIntoView({behavior: 'smooth'});">
-                        <div class="converter-icon">
+                    <a href="#security-tools" class="category-nav-card" onclick="document.getElementById('security-tools').scrollIntoView({behavior: 'smooth'});">
+                        <div class="category-nav-icon">
                             <i class="fas fa-lock"></i>
                         </div>
                         <h3>Security Tools</h3>
