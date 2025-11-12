@@ -640,13 +640,45 @@
                                 <div class="format-item" onclick="selectFormat('from', 'GIF')">GIF</div>
                                 <div class="format-item" onclick="selectFormat('from', 'WEBP')">WEBP</div>
                                 <div class="format-item" onclick="selectFormat('from', 'HEIC')">HEIC</div>
+                                <div class="format-item" onclick="selectFormat('from', 'HEIF')">HEIF</div>
                                 <div class="format-item" onclick="selectFormat('from', 'BMP')">BMP</div>
                                 <div class="format-item" onclick="selectFormat('from', 'TIFF')">TIFF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'TIF')">TIF</div>
                                 <div class="format-item" onclick="selectFormat('from', 'SVG')">SVG</div>
                                 <div class="format-item" onclick="selectFormat('from', 'ICO')">ICO</div>
+                                <div class="format-item" onclick="selectFormat('from', 'ICNS')">ICNS</div>
                                 <div class="format-item" onclick="selectFormat('from', 'PSD')">PSD</div>
                                 <div class="format-item" onclick="selectFormat('from', 'AVIF')">AVIF</div>
                                 <div class="format-item" onclick="selectFormat('from', 'EPS')">EPS</div>
+                                <div class="format-item" onclick="selectFormat('from', 'PS')">PS</div>
+                                <div class="format-item" onclick="selectFormat('from', 'JFIF')">JFIF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'JPEG')">JPEG</div>
+                                <div class="format-item" onclick="selectFormat('from', 'XCF')">XCF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'PPM')">PPM</div>
+                                <div class="format-item" onclick="selectFormat('from', 'XPS')">XPS</div>
+                                <div class="format-item" onclick="selectFormat('from', 'ODD')">ODD</div>
+                                <div class="format-item" onclick="selectFormat('from', 'ODG')">ODG</div>
+                                <div class="format-item" onclick="selectFormat('from', 'PUB')">PUB</div>
+                            </div>
+                            <div class="format-category">RAW CAMERA</div>
+                            <div class="format-items">
+                                <div class="format-item" onclick="selectFormat('from', 'CR2')">CR2</div>
+                                <div class="format-item" onclick="selectFormat('from', 'CR3')">CR3</div>
+                                <div class="format-item" onclick="selectFormat('from', 'CRW')">CRW</div>
+                                <div class="format-item" onclick="selectFormat('from', 'NEF')">NEF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'ARW')">ARW</div>
+                                <div class="format-item" onclick="selectFormat('from', 'DNG')">DNG</div>
+                                <div class="format-item" onclick="selectFormat('from', 'ORF')">ORF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'RAF')">RAF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'RW2')">RW2</div>
+                                <div class="format-item" onclick="selectFormat('from', 'PEF')">PEF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'RAW')">RAW</div>
+                                <div class="format-item" onclick="selectFormat('from', '3FR')">3FR</div>
+                                <div class="format-item" onclick="selectFormat('from', 'DCR')">DCR</div>
+                                <div class="format-item" onclick="selectFormat('from', 'ERF')">ERF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'MOS')">MOS</div>
+                                <div class="format-item" onclick="selectFormat('from', 'MRW')">MRW</div>
+                                <div class="format-item" onclick="selectFormat('from', 'X3F')">X3F</div>
                             </div>
                             <div class="format-category">VIDEO</div>
                             <div class="format-items">
@@ -698,10 +730,19 @@
                                 <div class="format-item" onclick="selectFormat('to', 'WEBP')">WEBP</div>
                                 <div class="format-item" onclick="selectFormat('to', 'BMP')">BMP</div>
                                 <div class="format-item" onclick="selectFormat('to', 'TIFF')">TIFF</div>
+                                <div class="format-item" onclick="selectFormat('to', 'TIF')">TIF</div>
                                 <div class="format-item" onclick="selectFormat('to', 'SVG')">SVG</div>
                                 <div class="format-item" onclick="selectFormat('to', 'ICO')">ICO</div>
+                                <div class="format-item" onclick="selectFormat('to', 'ICNS')">ICNS</div>
                                 <div class="format-item" onclick="selectFormat('to', 'PDF')">PDF</div>
                                 <div class="format-item" onclick="selectFormat('to', 'AVIF')">AVIF</div>
+                                <div class="format-item" onclick="selectFormat('to', 'EPS')">EPS</div>
+                                <div class="format-item" onclick="selectFormat('to', 'PS')">PS</div>
+                                <div class="format-item" onclick="selectFormat('to', 'PSD')">PSD</div>
+                                <div class="format-item" onclick="selectFormat('to', 'JFIF')">JFIF</div>
+                                <div class="format-item" onclick="selectFormat('to', 'JPEG')">JPEG</div>
+                                <div class="format-item" onclick="selectFormat('to', 'XCF')">XCF</div>
+                                <div class="format-item" onclick="selectFormat('to', 'PPM')">PPM</div>
                             </div>
                             <div class="format-category">VIDEO</div>
                             <div class="format-items">
@@ -956,6 +997,282 @@
                         </div>
                         <h3>GIF to MP4</h3>
                         <p>Convert animated GIF to MP4 video format</p>
+                    </a>
+                    <!-- RAW Camera Format Converters -->
+                    <a href="cr2-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>CR2 to JPG</h3>
+                        <p>Convert Canon RAW CR2 photos to JPG format</p>
+                    </a>
+                    <a href="nef-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>NEF to JPG</h3>
+                        <p>Convert Nikon RAW NEF images to JPG format</p>
+                    </a>
+                    <a href="arw-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>ARW to JPG</h3>
+                        <p>Convert Sony RAW ARW photos to JPG format</p>
+                    </a>
+                    <a href="dng-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>DNG to JPG</h3>
+                        <p>Convert Adobe DNG RAW to JPG format</p>
+                    </a>
+                    <a href="orf-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>ORF to JPG</h3>
+                        <p>Convert Olympus RAW ORF to JPG format</p>
+                    </a>
+                    <a href="raf-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>RAF to JPG</h3>
+                        <p>Convert Fujifilm RAW RAF to JPG format</p>
+                    </a>
+                    <a href="rw2-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>RW2 to JPG</h3>
+                        <p>Convert Panasonic RAW RW2 to JPG format</p>
+                    </a>
+                    <a href="pef-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>PEF to JPG</h3>
+                        <p>Convert Pentax RAW PEF to JPG format</p>
+                    </a>
+                    <a href="cr3-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>CR3 to JPG</h3>
+                        <p>Convert Canon RAW CR3 to JPG format</p>
+                    </a>
+                    <a href="crw-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>CRW to JPG</h3>
+                        <p>Convert Canon CRW RAW to JPG format</p>
+                    </a>
+                    <a href="3fr-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>3FR to JPG</h3>
+                        <p>Convert Hasselblad RAW 3FR to JPG format</p>
+                    </a>
+                    <a href="dcr-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>DCR to JPG</h3>
+                        <p>Convert Kodak RAW DCR to JPG format</p>
+                    </a>
+                    <a href="erf-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>ERF to JPG</h3>
+                        <p>Convert Epson RAW ERF to JPG format</p>
+                    </a>
+                    <a href="mos-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>MOS to JPG</h3>
+                        <p>Convert Leaf RAW MOS to JPG format</p>
+                    </a>
+                    <a href="mrw-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>MRW to JPG</h3>
+                        <p>Convert Minolta RAW MRW to JPG format</p>
+                    </a>
+                    <a href="x3f-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>X3F to JPG</h3>
+                        <p>Convert Sigma RAW X3F to JPG format</p>
+                    </a>
+                    <a href="raw-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>RAW to JPG</h3>
+                        <p>Convert generic RAW photos to JPG format</p>
+                    </a>
+                    <!-- Professional Image Format Converters -->
+                    <a href="eps-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>EPS to JPG</h3>
+                        <p>Convert EPS vector graphics to JPG format</p>
+                    </a>
+                    <a href="ps-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>PS to JPG</h3>
+                        <p>Convert PostScript PS to JPG format</p>
+                    </a>
+                    <a href="xcf-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3>XCF to PNG</h3>
+                        <p>Convert GIMP XCF files to PNG format</p>
+                    </a>
+                    <a href="icns-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-icons"></i>
+                        </div>
+                        <h3>ICNS to PNG</h3>
+                        <p>Convert macOS ICNS icons to PNG format</p>
+                    </a>
+                    <a href="jfif-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3>JFIF to JPG</h3>
+                        <p>Convert JFIF format to standard JPG</p>
+                    </a>
+                    <a href="ppm-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>PPM to PNG</h3>
+                        <p>Convert PPM portable pixmap to PNG format</p>
+                    </a>
+                    <a href="xps-to-pdf.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3>XPS to PDF</h3>
+                        <p>Convert XPS documents to PDF format</p>
+                    </a>
+                    <a href="odd-to-pdf.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>ODD to PDF</h3>
+                        <p>Convert ODD documents to PDF format</p>
+                    </a>
+                    <a href="odg-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-draw-polygon"></i>
+                        </div>
+                        <h3>ODG to PNG</h3>
+                        <p>Convert OpenDocument graphics to PNG</p>
+                    </a>
+                    <a href="pub-to-pdf.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>PUB to PDF</h3>
+                        <p>Convert Publisher PUB files to PDF</p>
+                    </a>
+                    <a href="heif-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>HEIF to JPG</h3>
+                        <p>Convert Apple HEIF format to JPG</p>
+                    </a>
+                    <a href="jpeg-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3>JPEG to PNG</h3>
+                        <p>Convert JPEG images to PNG format</p>
+                    </a>
+                    <!-- Additional Format Converters -->
+                    <a href="cr2-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>CR2 to PNG</h3>
+                        <p>Convert Canon RAW CR2 to PNG format</p>
+                    </a>
+                    <a href="nef-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>NEF to PNG</h3>
+                        <p>Convert Nikon RAW NEF to PNG format</p>
+                    </a>
+                    <a href="arw-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>ARW to PNG</h3>
+                        <p>Convert Sony RAW ARW to PNG format</p>
+                    </a>
+                    <a href="dng-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>DNG to PNG</h3>
+                        <p>Convert Adobe DNG RAW to PNG format</p>
+                    </a>
+                    <a href="eps-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>EPS to PNG</h3>
+                        <p>Convert EPS vector graphics to PNG</p>
+                    </a>
+                    <a href="ps-to-pdf.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <h3>PS to PDF</h3>
+                        <p>Convert PostScript PS to PDF documents</p>
+                    </a>
+                    <a href="xcf-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3>XCF to JPG</h3>
+                        <p>Convert GIMP XCF files to JPG format</p>
+                    </a>
+                    <a href="psd-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3>PSD to JPG</h3>
+                        <p>Convert Photoshop PSD to JPG format</p>
+                    </a>
+                    <a href="avif-to-png.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>AVIF to PNG</h3>
+                        <p>Convert next-gen AVIF to PNG format</p>
+                    </a>
+                    <a href="bmp-to-jpg.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3>BMP to JPG</h3>
+                        <p>Convert Windows BMP to JPG format</p>
                     </a>
                 </div>
             </div>
