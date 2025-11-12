@@ -538,6 +538,93 @@
             background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
         }
 
+        /* View Toggle Buttons */
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .view-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .view-btn:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.4);
+            color: #667eea;
+        }
+        .view-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: white;
+        }
+        .view-btn i {
+            font-size: 1rem;
+        }
+
+        /* Compact View */
+        .converter-grid.compact-view {
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+        .converter-grid.compact-view .converter-card {
+            padding: 10px;
+        }
+        .converter-grid.compact-view .converter-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .converter-grid.compact-view .converter-card h3 {
+            font-size: 0.7rem;
+            margin-bottom: 3px;
+        }
+        .converter-grid.compact-view .converter-card p {
+            font-size: 0.6rem;
+        }
+
+        /* List View */
+        .converter-grid.list-view {
+            display: block;
+            max-width: 100%;
+        }
+        .converter-grid.list-view .converter-card {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+        }
+        .converter-grid.list-view .converter-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.3rem;
+            margin: 0 16px 0 0;
+            flex-shrink: 0;
+        }
+        .converter-grid.list-view .converter-card h3 {
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+        .converter-grid.list-view .converter-card p {
+            font-size: 0.75rem;
+            margin: 0;
+        }
+
         /* Category Navigation Cards - Canva Style */
         .category-nav-section {
             max-width: 1200px;
@@ -673,6 +760,23 @@
             }
             .converter-grid {
                 grid-template-columns: 1fr;
+            }
+            /* Compact view on mobile - 2 columns */
+            .converter-grid.compact-view {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            /* List view stays as single column */
+            .converter-grid.list-view {
+                grid-template-columns: 1fr;
+            }
+            /* View toggle buttons smaller on mobile */
+            .view-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            .view-btn i {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -960,8 +1064,21 @@
                 <div class="category-header">
                     <h2>Image Converters</h2>
                     <p>Convert images between different formats with quality preservation</p>
+                    
+                    <!-- View Toggle Buttons -->
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="default" onclick="changeView('default')">
+                            <i class="fas fa-th-large"></i> Default
+                        </button>
+                        <button class="view-btn" data-view="compact" onclick="changeView('compact')">
+                            <i class="fas fa-th"></i> Compact
+                        </button>
+                        <button class="view-btn" data-view="list" onclick="changeView('list')">
+                            <i class="fas fa-list"></i> List
+                        </button>
+                    </div>
                 </div>
-                <div class="converter-grid">
+                <div class="converter-grid" id="converterGrid">
                     <a href="jpg-to-png.html" class="converter-card" target="_blank">
                         <div class="converter-icon">
                             <i class="fas fa-image"></i>
@@ -2094,6 +2211,41 @@
                 }
             });
         }
+
+        // View Toggle Function
+        function changeView(viewType) {
+            const grid = document.getElementById('converterGrid');
+            const buttons = document.querySelectorAll('.view-btn');
+            
+            // Remove all view classes
+            grid.classList.remove('compact-view', 'list-view');
+            
+            // Add selected view class
+            if (viewType === 'compact') {
+                grid.classList.add('compact-view');
+            } else if (viewType === 'list') {
+                grid.classList.add('list-view');
+            }
+            
+            // Update active button
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-view') === viewType) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Save preference to localStorage
+            localStorage.setItem('converterViewPreference', viewType);
+        }
+
+        // Load saved view preference on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedView = localStorage.getItem('converterViewPreference');
+            if (savedView) {
+                changeView(savedView);
+            }
+        });
     </script>
 </body>
 </html>
