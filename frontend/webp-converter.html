@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEBP Converter - Convert WEBP Files - SIGIRI</title>
+    <meta name="description" content="Free WEBP converter - Convert WEBP images to JPG, PNG, GIF and more. Fast, secure online conversion.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: linear-gradient(135deg, rgba(48, 207, 208, 0.1) 0%, rgba(51, 8, 103, 0.1) 100%); backdrop-filter: blur(100px); min-height: 100vh; display: flex; position: relative; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 30%, rgba(48, 207, 208, 0.15) 0%, transparent 50%); z-index: 0; pointer-events: none; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -50px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.9); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+        .floating-shape { position: fixed; border-radius: 50%; filter: blur(100px); opacity: 0.3; z-index: 0; animation: float 25s ease-in-out infinite, pulse 10s ease-in-out infinite; pointer-events: none; }
+        .shape1 { width: 500px; height: 500px; background: linear-gradient(135deg, rgba(48, 207, 208, 0.25) 0%, rgba(51, 8, 103, 0.25) 100%); top: 50%; right: 10%; animation-delay: 3s; }
+        .shape2 { width: 450px; height: 450px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.25) 0%, rgba(118, 75, 162, 0.25) 100%); bottom: 20%; left: 15%; animation-delay: 10s; }
+        
+        /* Sidebar */
+        .left-sidebar { width: 70px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(30px); border-right: 1px solid rgba(255, 255, 255, 0.5); display: flex; flex-direction: column; align-items: center; padding: 20px 0; position: fixed; height: 100vh; z-index: 1000; box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05); }
+        .sidebar-logo { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 40px; }
+        .sidebar-item { width: 50px; height: 50px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; text-decoration: none; color: #666; font-size: 0.7rem; gap: 2px; margin-bottom: 10px; }
+        .sidebar-item i { font-size: 1.3rem; }
+        .sidebar-item:hover { background: rgba(245, 245, 255, 0.6); }
+        
+        /* Main Container */
+        .main-container { margin-left: 70px; flex: 1; display: flex; justify-content: center; padding: 30px 20px; position: relative; z-index: 1; }
+        .content { width: 100%; max-width: 1200px; }
+        
+        /* Breadcrumb */
+        .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 25px; font-size: 0.9rem; color: #666; flex-wrap: wrap; }
+        .breadcrumb a { color: #667eea; text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: #764ba2; text-decoration: underline; }
+        .breadcrumb i { font-size: 0.7rem; color: #999; }
+        
+        /* Header */
+        .hub-header { text-align: center; margin-bottom: 40px; }
+        .format-badge { display: inline-block; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); color: white; padding: 8px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(48, 207, 208, 0.3); }
+        .hub-header h1 { font-size: 2.8rem; margin-bottom: 15px; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hub-header p { color: #666; font-size: 1.15rem; line-height: 1.6; max-width: 800px; margin: 0 auto; }
+        
+        /* Format Info */
+        .format-info { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(25px); border-radius: 16px; padding: 30px; margin-bottom: 40px; border: 1px solid rgba(255, 255, 255, 0.5); }
+        .format-info h2 { font-size: 1.4rem; color: #333; margin-bottom: 12px; }
+        .format-info p { color: #666; line-height: 1.7; font-size: 1rem; }
+        
+        /* Ad Container */
+        .ad-container { background: rgba(248, 249, 250, 0.5); backdrop-filter: blur(10px); border: 1px dashed rgba(102, 126, 234, 0.2); border-radius: 12px; padding: 15px; margin: 30px 0; text-align: center; min-height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .ad-label { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        body.premium-user .ad-container { display: none; }
+        
+        /* Conversions Section */
+        .conversions-section { margin-top: 40px; }
+        .conversions-section h2 { font-size: 1.8rem; color: #333; margin-bottom: 25px; font-weight: 700; }
+        .conversions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+        .conversion-option { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(25px); border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit; transition: all 0.3s; border: 1px solid rgba(255, 255, 255, 0.5); cursor: pointer; }
+        .conversion-option:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); border-color: #30cfd0; }
+        .conversion-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); flex-shrink: 0; }
+        .conversion-info { flex: 1; }
+        .conversion-info h3 { font-size: 1rem; color: #333; margin-bottom: 4px; font-weight: 600; }
+        .conversion-info p { font-size: 0.85rem; color: #666; }
+        .conversion-arrow { font-size: 1.2rem; color: #30cfd0; }
+        
+        /* Popular Badge */
+        .popular-badge { display: inline-block; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; margin-left: 8px; }
+        
+        /* Features */
+        .features { margin-top: 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .feature-card { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(25px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.5); }
+        .feature-card i { font-size: 2.2rem; color: #30cfd0; margin-bottom: 15px; }
+        .feature-card h4 { font-size: 1.05rem; color: #333; margin-bottom: 8px; }
+        .feature-card p { color: #666; font-size: 0.9rem; line-height: 1.5; }
+        
+        @media (max-width: 768px) {
+            .hub-header h1 { font-size: 2rem; }
+            .conversions-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    
+    <div class="left-sidebar">
+        <div class="sidebar-logo">S</div>
+        <a href="dashboard.html" class="sidebar-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="converters.html" class="sidebar-item"><i class="fas fa-exchange-alt"></i><span>Converts</span></a>
+    </div>
+    
+    <div class="main-container">
+        <div class="content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="dashboard.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="converters.html">Image Converters</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>WEBP Converter</span>
+            </div>
+            
+            <!-- Ad Header -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567890"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+            
+            <!-- Header -->
+            <div class="hub-header">
+                <div class="format-badge">.webp FORMAT</div>
+                <h1>WEBP File Converter</h1>
+                <p>Convert WEBP images to JPG, PNG, and more. Google's modern image format with superior compression and quality.</p>
+            </div>
+            
+            <!-- Format Info -->
+            <div class="format-info">
+                <h2>About WEBP Format</h2>
+                <p>WEBP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web. WEBP files are 25-35% smaller than JPEG at equivalent quality and support transparency like PNG. The format also supports animation, making it a versatile replacement for JPEG, PNG, and GIF. While browser support has improved significantly, some older systems may require conversion to more compatible formats.</p>
+            </div>
+            
+            <!-- Conversions Section -->
+            <div class="conversions-section">
+                <h2>Convert WEBP Files To:</h2>
+                <div class="conversions-grid">
+                    <a href="webp-to-jpg.html" class="conversion-option">
+                        <div class="conversion-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <div class="conversion-info">
+                            <h3>WEBP to JPG</h3>
+                            <p>Convert to universal JPG format</p>
+                        </div>
+                        <i class="fas fa-arrow-right conversion-arrow"></i>
+                    </a>
+                    <a href="webp-to-png.html" class="conversion-option">
+                        <div class="conversion-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <div class="conversion-info">
+                            <h3>WEBP to PNG</h3>
+                            <p>Convert to PNG format</p>
+                        </div>
+                        <i class="fas fa-arrow-right conversion-arrow"></i>
+                    </a>
+                    <a href="webp-to-gif.html" class="conversion-option">
+                        <div class="conversion-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div class="conversion-info">
+                            <h3>WEBP to GIF</h3>
+                            <p>Convert to GIF animation</p>
+                        </div>
+                        <i class="fas fa-arrow-right conversion-arrow"></i>
+                    </a>
+                    <a href="webp-to-bmp.html" class="conversion-option">
+                        <div class="conversion-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <div class="conversion-info">
+                            <h3>WEBP to BMP</h3>
+                            <p>Convert to BMP format</p>
+                        </div>
+                        <i class="fas fa-arrow-right conversion-arrow"></i>
+                    </a>
+                    <a href="webp-to-ico.html" class="conversion-option">
+                        <div class="conversion-icon">
+                            <i class="fas fa-icons"></i>
+                        </div>
+                        <div class="conversion-info">
+                            <h3>WEBP to ICO</h3>
+                            <p>Create icons from WEBP</p>
+                        </div>
+                        <i class="fas fa-arrow-right conversion-arrow"></i>
+                    </a>
+                    <a href="webp-to-pdf.html" class="conversion-option">
+                        <div class="conversion-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="conversion-info">
+                            <h3>WEBP to PDF</h3>
+                            <p>Create PDF from WEBP</p>
+                        </div>
+                        <i class="fas fa-arrow-right conversion-arrow"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Ad Middle -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0987654321"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+            
+            <!-- Features -->
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Fast Conversion</h4>
+                    <p>Convert your WEBP files in seconds with our optimized processing</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>100% Secure</h4>
+                    <p>Your files are encrypted and deleted automatically after conversion</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-star"></i>
+                    <h4>High Quality</h4>
+                    <p>Maintain maximum quality during WEBP file conversion</p>
+                </div>
+            </div>
+            
+            <!-- Ad Footer -->
+            <div class="ad-container" style="margin-top: 40px;">
+                <div class="ad-label">Advertisement</div>
+                <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1122334455"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function checkPremiumStatus() {
+            const isPremium = localStorage.getItem('isPremiumUser') === 'true';
+            if (isPremium) {
+                document.body.classList.add('premium-user');
+            }
+        }
+        checkPremiumStatus();
+    </script>
+</body>
+</html>
