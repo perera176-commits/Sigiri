@@ -1,0 +1,489 @@
+#!/usr/bin/env python3
+"""
+Script to create CR2 (Canon RAW) converter pages
+"""
+
+import os
+
+# Format information with icons and descriptions
+format_info = {
+    'pdf': {'icon': 'fa-file-pdf', 'name': 'PDF', 'desc': 'Convert Canon RAW CR2 to PDF documents'},
+    'eps': {'icon': 'fa-file-image', 'name': 'EPS', 'desc': 'Convert Canon RAW CR2 to EPS vector format'},
+    'gif': {'icon': 'fa-film', 'name': 'GIF', 'desc': 'Convert Canon RAW CR2 to GIF format'},
+    'ico': {'icon': 'fa-icons', 'name': 'ICO', 'desc': 'Convert Canon RAW CR2 to ICO icon format'},
+    'odd': {'icon': 'fa-file-alt', 'name': 'ODD', 'desc': 'Convert Canon RAW CR2 to ODD document format'},
+    'ps': {'icon': 'fa-file-image', 'name': 'PS', 'desc': 'Convert Canon RAW CR2 to PostScript format'},
+    'psd': {'icon': 'fa-image', 'name': 'PSD', 'desc': 'Convert Canon RAW CR2 to Photoshop PSD format'},
+    'tiff': {'icon': 'fa-file-image', 'name': 'TIFF', 'desc': 'Convert Canon RAW CR2 to TIFF format'},
+    'webp': {'icon': 'fa-images', 'name': 'WEBP', 'desc': 'Convert Canon RAW CR2 to WEBP format'},
+}
+
+def get_template(target_format):
+    """Generate HTML template for CR2 converter"""
+    info = format_info[target_format]
+    
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CR2 to {info['name']} Converter - Free Online Canon RAW Converter | SIGIRI</title>
+    <meta name="description" content="Convert Canon RAW CR2 files to {info['name']} format online for free. Fast, secure, and easy-to-use CR2 to {info['name']} converter with no software installation required.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }}
+
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+        }}
+
+        .sidebar {{
+            width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }}
+
+        .logo {{
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }}
+
+        .logo h1 {{
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }}
+
+        .main-content {{
+            margin-left: 250px;
+            flex: 1;
+            padding: 2rem;
+        }}
+
+        .converter-container {{
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }}
+
+        h1 {{
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }}
+
+        .subtitle {{
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }}
+
+        .upload-area {{
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(102, 126, 234, 0.05);
+            margin-bottom: 2rem;
+        }}
+
+        .upload-area:hover {{
+            border-color: #764ba2;
+            background: rgba(118, 75, 162, 0.05);
+            transform: translateY(-2px);
+        }}
+
+        .upload-area.dragover {{
+            border-color: #764ba2;
+            background: rgba(118, 75, 162, 0.1);
+            transform: scale(1.02);
+        }}
+
+        .upload-icon {{
+            font-size: 4rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }}
+
+        .upload-text {{
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }}
+
+        .upload-hint {{
+            color: #666;
+            font-size: 0.9rem;
+        }}
+
+        #fileInput {{
+            display: none;
+        }}
+
+        .file-info {{
+            background: rgba(67, 233, 123, 0.1);
+            border: 1px solid rgba(67, 233, 123, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: none;
+        }}
+
+        .file-info.show {{
+            display: block;
+        }}
+
+        .file-details {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }}
+
+        .file-name {{
+            font-weight: 600;
+            color: #333;
+        }}
+
+        .file-size {{
+            color: #666;
+            font-size: 0.9rem;
+        }}
+
+        .remove-file {{
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }}
+
+        .remove-file:hover {{
+            background: #ff3838;
+        }}
+
+        .convert-btn {{
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: none;
+        }}
+
+        .convert-btn.show {{
+            display: block;
+        }}
+
+        .convert-btn:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }}
+
+        .convert-btn:disabled {{
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }}
+
+        .premium-badge {{
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }}
+
+        .features {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }}
+
+        .feature-card {{
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }}
+
+        .feature-card:hover {{
+            transform: translateY(-5px);
+        }}
+
+        .feature-icon {{
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }}
+
+        .feature-title {{
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }}
+
+        .feature-desc {{
+            color: #666;
+            font-size: 0.9rem;
+        }}
+
+        .spinner {{
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }}
+
+        @keyframes spin {{
+            to {{ transform: rotate(360deg); }}
+        }}
+
+        .converting .spinner {{
+            display: inline-block;
+        }}
+
+        @media (max-width: 768px) {{
+            .sidebar {{
+                display: none;
+            }}
+
+            .main-content {{
+                margin-left: 0;
+                padding: 1rem;
+            }}
+
+            .converter-container {{
+                padding: 1.5rem;
+            }}
+
+            .features {{
+                grid-template-columns: 1fr;
+            }}
+        }}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h1>S</h1>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- AdSense Ad Slot 1 (Top) -->
+        <div class="ad-container" style="text-align: center; margin-bottom: 2rem;">
+            <!-- Replace with your AdSense code -->
+        </div>
+
+        <div class="converter-container">
+            <div class="premium-badge">FREE TOOL</div>
+            <h1>CR2 to {info['name']} Converter</h1>
+            <p class="subtitle">{info['desc']}</p>
+
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="upload-text">Click to upload or drag and drop</div>
+                <div class="upload-hint">Maximum file size: 100MB</div>
+                <input type="file" id="fileInput" accept=".cr2,.CR2">
+            </div>
+
+            <div class="file-info" id="fileInfo">
+                <div class="file-details">
+                    <div>
+                        <div class="file-name" id="fileName"></div>
+                        <div class="file-size" id="fileSize"></div>
+                    </div>
+                    <button class="remove-file" id="removeFile">Remove</button>
+                </div>
+            </div>
+
+            <button class="convert-btn" id="convertBtn">
+                <span id="btnText">Convert to {info['name']}</span>
+                <div class="spinner"></div>
+            </button>
+
+            <!-- AdSense Ad Slot 2 (Middle) -->
+            <div class="ad-container" style="text-align: center; margin: 2rem 0;">
+                <!-- Replace with your AdSense code -->
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="feature-title">Fast Conversion</div>
+                    <div class="feature-desc">Convert your CR2 files to {info['name']} in seconds</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-title">Secure & Private</div>
+                    <div class="feature-desc">Your files are processed securely and deleted after conversion</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="feature-title">High Quality</div>
+                    <div class="feature-desc">Maintain the best quality in your converted {info['name']} files</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const convertBtn = document.getElementById('convertBtn');
+        const removeFile = document.getElementById('removeFile');
+        const btnText = document.getElementById('btnText');
+
+        let selectedFile = null;
+
+        // Check if user is premium
+        const isPremium = localStorage.getItem('isPremium') === 'true';
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {{
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        }});
+
+        uploadArea.addEventListener('dragleave', () => {{
+            uploadArea.classList.remove('dragover');
+        }});
+
+        uploadArea.addEventListener('drop', (e) => {{
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {{
+                handleFile(files[0]);
+            }}
+        }});
+
+        fileInput.addEventListener('change', (e) => {{
+            if (e.target.files.length > 0) {{
+                handleFile(e.target.files[0]);
+            }}
+        }});
+
+        removeFile.addEventListener('click', () => {{
+            selectedFile = null;
+            fileInput.value = '';
+            fileInfo.classList.remove('show');
+            convertBtn.classList.remove('show');
+        }});
+
+        function handleFile(file) {{
+            if (file.name.toLowerCase().endsWith('.cr2')) {{
+                selectedFile = file;
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                fileInfo.classList.add('show');
+                convertBtn.classList.add('show');
+            }} else {{
+                alert('Please select a valid CR2 file');
+            }}
+        }}
+
+        function formatFileSize(bytes) {{
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }}
+
+        convertBtn.addEventListener('click', async () => {{
+            if (!selectedFile) return;
+
+            convertBtn.disabled = true;
+            convertBtn.classList.add('converting');
+            btnText.textContent = 'Converting...';
+
+            // Simulate conversion process
+            setTimeout(() => {{
+                convertBtn.disabled = false;
+                convertBtn.classList.remove('converting');
+                btnText.textContent = 'Convert to {info['name']}';
+                alert('Conversion complete! Your file will be downloaded shortly.');
+                // In production, implement actual conversion logic here
+            }}, 2000);
+        }});
+    </script>
+</body>
+</html>'''
+
+def create_converter_page(target_format):
+    """Create a single CR2 converter page"""
+    filename = f"cr2-to-{target_format}.html"
+    
+    if os.path.exists(filename):
+        print(f"⚠️  {filename} already exists, skipping...")
+        return False
+    
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(get_template(target_format))
+    
+    print(f"✅ Created {filename}")
+    return True
+
+def main():
+    print("Creating CR2 converter pages...\n")
+    
+    created_count = 0
+    for target_format in format_info.keys():
+        if create_converter_page(target_format):
+            created_count += 1
+    
+    print(f"\n✨ Done! Created {created_count} new CR2 converter pages.")
+    print(f"📝 Total formats: {len(format_info)}")
+
+if __name__ == "__main__":
+    main()
