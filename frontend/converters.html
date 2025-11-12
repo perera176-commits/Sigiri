@@ -295,6 +295,158 @@
             transform: translateY(-1px);
         }
 
+        /* Format Selector */
+        .format-selector {
+            max-width: 900px;
+            margin: 35px auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(30px);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+        .selector-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .selector-header h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .selector-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .format-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .format-dropdown {
+            position: relative;
+            flex: 1;
+            max-width: 250px;
+            min-width: 200px;
+        }
+        .dropdown-btn {
+            width: 100%;
+            background: white;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s;
+        }
+        .dropdown-btn:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+        .dropdown-btn i {
+            color: #667eea;
+            font-size: 0.9rem;
+        }
+        .convert-arrow {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #2a2a2a;
+            border-radius: 12px;
+            margin-top: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+        .dropdown-search {
+            padding: 15px;
+            border-bottom: 1px solid #444;
+            position: sticky;
+            top: 0;
+            background: #2a2a2a;
+        }
+        .dropdown-search input {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px 15px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        .dropdown-search input::placeholder {
+            color: #888;
+        }
+        .format-category {
+            padding: 12px 20px;
+            color: #888;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .format-items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 8px 15px 15px;
+        }
+        .format-item {
+            background: #3a3a3a;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .format-item:hover {
+            background: #4a4a4a;
+            transform: scale(1.05);
+        }
+        .go-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .go-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        .go-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* Converter Categories */
         .category-section {
             margin-bottom: 45px;
@@ -468,6 +620,126 @@
                     <span class="search-tag" onclick="quickSearch('JPG to PNG')">JPG to PNG</span>
                     <span class="search-tag" onclick="quickSearch('MP4 to AVI')">MP4 to AVI</span>
                     <span class="search-tag" onclick="quickSearch('MP3 to WAV')">MP3 to WAV</span>
+                </div>
+            </div>
+
+            <!-- Format Selector -->
+            <div class="format-selector">
+                <div class="selector-header">
+                    <h3>Quick Convert</h3>
+                    <p>Select source and target formats to convert your files</p>
+                </div>
+                <div class="format-row">
+                    <div class="format-dropdown">
+                        <div class="dropdown-btn" id="fromFormatBtn" onclick="toggleDropdown('from')">
+                            <span id="fromFormatText">Select Format</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu" id="fromDropdown">
+                            <div class="dropdown-search">
+                                <input type="text" placeholder="Search Format..." id="fromSearch" onkeyup="filterFormats('from')">
+                            </div>
+                            <div class="format-category">IMAGE</div>
+                            <div class="format-items" id="fromImageFormats">
+                                <div class="format-item" onclick="selectFormat('from', 'JPG')">JPG</div>
+                                <div class="format-item" onclick="selectFormat('from', 'PNG')">PNG</div>
+                                <div class="format-item" onclick="selectFormat('from', 'GIF')">GIF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'WEBP')">WEBP</div>
+                                <div class="format-item" onclick="selectFormat('from', 'HEIC')">HEIC</div>
+                                <div class="format-item" onclick="selectFormat('from', 'BMP')">BMP</div>
+                                <div class="format-item" onclick="selectFormat('from', 'TIFF')">TIFF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'SVG')">SVG</div>
+                                <div class="format-item" onclick="selectFormat('from', 'ICO')">ICO</div>
+                                <div class="format-item" onclick="selectFormat('from', 'PSD')">PSD</div>
+                                <div class="format-item" onclick="selectFormat('from', 'AVIF')">AVIF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'EPS')">EPS</div>
+                            </div>
+                            <div class="format-category">VIDEO</div>
+                            <div class="format-items">
+                                <div class="format-item" onclick="selectFormat('from', 'MP4')">MP4</div>
+                                <div class="format-item" onclick="selectFormat('from', 'AVI')">AVI</div>
+                                <div class="format-item" onclick="selectFormat('from', 'MOV')">MOV</div>
+                                <div class="format-item" onclick="selectFormat('from', 'MKV')">MKV</div>
+                                <div class="format-item" onclick="selectFormat('from', 'WEBM')">WEBM</div>
+                                <div class="format-item" onclick="selectFormat('from', 'FLV')">FLV</div>
+                            </div>
+                            <div class="format-category">AUDIO</div>
+                            <div class="format-items">
+                                <div class="format-item" onclick="selectFormat('from', 'MP3')">MP3</div>
+                                <div class="format-item" onclick="selectFormat('from', 'WAV')">WAV</div>
+                                <div class="format-item" onclick="selectFormat('from', 'M4A')">M4A</div>
+                                <div class="format-item" onclick="selectFormat('from', 'FLAC')">FLAC</div>
+                                <div class="format-item" onclick="selectFormat('from', 'OGG')">OGG</div>
+                                <div class="format-item" onclick="selectFormat('from', 'AAC')">AAC</div>
+                            </div>
+                            <div class="format-category">DOCUMENT</div>
+                            <div class="format-items">
+                                <div class="format-item" onclick="selectFormat('from', 'PDF')">PDF</div>
+                                <div class="format-item" onclick="selectFormat('from', 'DOCX')">DOCX</div>
+                                <div class="format-item" onclick="selectFormat('from', 'XLSX')">XLSX</div>
+                                <div class="format-item" onclick="selectFormat('from', 'PPTX')">PPTX</div>
+                                <div class="format-item" onclick="selectFormat('from', 'TXT')">TXT</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="convert-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    
+                    <div class="format-dropdown">
+                        <div class="dropdown-btn" id="toFormatBtn" onclick="toggleDropdown('to')">
+                            <span id="toFormatText">Select Format</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu" id="toDropdown">
+                            <div class="dropdown-search">
+                                <input type="text" placeholder="Search Format..." id="toSearch" onkeyup="filterFormats('to')">
+                            </div>
+                            <div class="format-category">IMAGE</div>
+                            <div class="format-items" id="toImageFormats">
+                                <div class="format-item" onclick="selectFormat('to', 'JPG')">JPG</div>
+                                <div class="format-item" onclick="selectFormat('to', 'PNG')">PNG</div>
+                                <div class="format-item" onclick="selectFormat('to', 'GIF')">GIF</div>
+                                <div class="format-item" onclick="selectFormat('to', 'WEBP')">WEBP</div>
+                                <div class="format-item" onclick="selectFormat('to', 'BMP')">BMP</div>
+                                <div class="format-item" onclick="selectFormat('to', 'TIFF')">TIFF</div>
+                                <div class="format-item" onclick="selectFormat('to', 'SVG')">SVG</div>
+                                <div class="format-item" onclick="selectFormat('to', 'ICO')">ICO</div>
+                                <div class="format-item" onclick="selectFormat('to', 'PDF')">PDF</div>
+                                <div class="format-item" onclick="selectFormat('to', 'AVIF')">AVIF</div>
+                            </div>
+                            <div class="format-category">VIDEO</div>
+                            <div class="format-items">
+                                <div class="format-item" onclick="selectFormat('to', 'MP4')">MP4</div>
+                                <div class="format-item" onclick="selectFormat('to', 'AVI')">AVI</div>
+                                <div class="format-item" onclick="selectFormat('to', 'MOV')">MOV</div>
+                                <div class="format-item" onclick="selectFormat('to', 'MKV')">MKV</div>
+                                <div class="format-item" onclick="selectFormat('to', 'WEBM')">WEBM</div>
+                                <div class="format-item" onclick="selectFormat('to', 'GIF')">GIF</div>
+                            </div>
+                            <div class="format-category">AUDIO</div>
+                            <div class="format-items">
+                                <div class="format-item" onclick="selectFormat('to', 'MP3')">MP3</div>
+                                <div class="format-item" onclick="selectFormat('to', 'WAV')">WAV</div>
+                                <div class="format-item" onclick="selectFormat('to', 'M4A')">M4A</div>
+                                <div class="format-item" onclick="selectFormat('to', 'FLAC')">FLAC</div>
+                                <div class="format-item" onclick="selectFormat('to', 'OGG')">OGG</div>
+                                <div class="format-item" onclick="selectFormat('to', 'AAC')">AAC</div>
+                            </div>
+                            <div class="format-category">DOCUMENT</div>
+                            <div class="format-items">
+                                <div class="format-item" onclick="selectFormat('to', 'PDF')">PDF</div>
+                                <div class="format-item" onclick="selectFormat('to', 'DOCX')">DOCX</div>
+                                <div class="format-item" onclick="selectFormat('to', 'XLSX')">XLSX</div>
+                                <div class="format-item" onclick="selectFormat('to', 'TXT')">TXT</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="go-btn" id="goBtn" onclick="convertFormats()" disabled>
+                        <i class="fas fa-play"></i> Convert
+                    </button>
                 </div>
             </div>
 
@@ -1161,6 +1433,80 @@
             searchInput.value = term;
             performSearch(term);
             searchInput.focus();
+        }
+
+        // Format Selector Functionality
+        let fromFormat = '';
+        let toFormat = '';
+
+        function toggleDropdown(type) {
+            const dropdown = document.getElementById(type + 'Dropdown');
+            const otherDropdown = document.getElementById(type === 'from' ? 'toDropdown' : 'fromDropdown');
+            
+            // Close other dropdown
+            otherDropdown.classList.remove('active');
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('active');
+            
+            // Close dropdown when clicking outside
+            if (dropdown.classList.contains('active')) {
+                setTimeout(() => {
+                    document.addEventListener('click', closeDropdownOutside);
+                }, 0);
+            }
+        }
+
+        function closeDropdownOutside(e) {
+            if (!e.target.closest('.format-dropdown')) {
+                document.getElementById('fromDropdown').classList.remove('active');
+                document.getElementById('toDropdown').classList.remove('active');
+                document.removeEventListener('click', closeDropdownOutside);
+            }
+        }
+
+        function selectFormat(type, format) {
+            if (type === 'from') {
+                fromFormat = format;
+                document.getElementById('fromFormatText').textContent = format;
+            } else {
+                toFormat = format;
+                document.getElementById('toFormatText').textContent = format;
+            }
+            
+            // Close dropdown
+            document.getElementById(type + 'Dropdown').classList.remove('active');
+            
+            // Enable convert button if both selected
+            if (fromFormat && toFormat) {
+                document.getElementById('goBtn').disabled = false;
+            }
+        }
+
+        function convertFormats() {
+            if (fromFormat && toFormat) {
+                // Create converter page URL
+                const converterUrl = fromFormat.toLowerCase() + '-to-' + toFormat.toLowerCase() + '.html';
+                
+                // Check if page exists, if not, show message
+                window.location.href = converterUrl;
+            }
+        }
+
+        function filterFormats(type) {
+            const searchInput = document.getElementById(type + 'Search');
+            const searchTerm = searchInput.value.toLowerCase();
+            const dropdown = document.getElementById(type + 'Dropdown');
+            const formatItems = dropdown.querySelectorAll('.format-item');
+            
+            formatItems.forEach(item => {
+                const format = item.textContent.toLowerCase();
+                if (format.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
