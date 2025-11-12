@@ -778,60 +778,60 @@
                 </div>
             </div>
 
-            <!-- Format Hubs -->
+            <!-- Category Hubs -->
             <div class="category-section">
                 <div class="category-header">
-                    <h2>🌟 Popular Format Converters</h2>
-                    <p>Explore all conversion options for popular file formats</p>
+                    <h2>🌟 Popular Converter Categories</h2>
+                    <p>Choose a category to explore all available converters</p>
                 </div>
                 <div class="converter-grid">
-                    <a href="heic-converter.html" class="converter-card">
-                        <div class="converter-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3>HEIC Converter</h3>
-                        <p>Convert iPhone HEIC photos to any format</p>
-                    </a>
-                    <a href="png-converter.html" class="converter-card">
-                        <div class="converter-icon">
-                            <i class="fas fa-file-image"></i>
-                        </div>
-                        <h3>PNG Converter</h3>
-                        <p>Convert PNG images with transparency</p>
-                    </a>
-                    <a href="jpg-converter.html" class="converter-card">
+                    <a href="#image-converters" class="converter-card" onclick="document.getElementById('image-converters').scrollIntoView({behavior: 'smooth'});">
                         <div class="converter-icon">
                             <i class="fas fa-image"></i>
                         </div>
-                        <h3>JPG Converter</h3>
-                        <p>Convert JPG/JPEG photos to any format</p>
+                        <h3>Image Converters</h3>
+                        <p>Convert images between different formats</p>
                     </a>
-                    <a href="gif-converter.html" class="converter-card">
+                    <a href="#video-converters" class="converter-card" onclick="document.getElementById('video-converters').scrollIntoView({behavior: 'smooth'});">
                         <div class="converter-icon">
-                            <i class="fas fa-film"></i>
+                            <i class="fas fa-video"></i>
                         </div>
-                        <h3>GIF Converter</h3>
-                        <p>Convert GIF animations and graphics</p>
+                        <h3>Video Converters</h3>
+                        <p>Convert videos to different formats</p>
                     </a>
-                    <a href="webp-converter.html" class="converter-card">
+                    <a href="#audio-converters" class="converter-card" onclick="document.getElementById('audio-converters').scrollIntoView({behavior: 'smooth'});">
                         <div class="converter-icon">
-                            <i class="fas fa-images"></i>
+                            <i class="fas fa-music"></i>
                         </div>
-                        <h3>WEBP Converter</h3>
-                        <p>Convert modern WEBP images</p>
+                        <h3>Audio Converters</h3>
+                        <p>Convert audio files and music formats</p>
                     </a>
-                    <a href="pdf-converter.html" class="converter-card">
+                    <a href="#document-converters" class="converter-card" onclick="document.getElementById('document-converters').scrollIntoView({behavior: 'smooth'});">
                         <div class="converter-icon">
-                            <i class="fas fa-file-pdf"></i>
+                            <i class="fas fa-file-alt"></i>
                         </div>
-                        <h3>PDF Converter</h3>
-                        <p>Convert PDF documents to any format</p>
+                        <h3>Document Converters</h3>
+                        <p>Convert documents and office files</p>
+                    </a>
+                    <a href="#archive-converters" class="converter-card" onclick="document.getElementById('archive-converters').scrollIntoView({behavior: 'smooth'});">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-archive"></i>
+                        </div>
+                        <h3>Archive & Compression</h3>
+                        <p>Compress and extract archive files</p>
+                    </a>
+                    <a href="#security-tools" class="converter-card" onclick="document.getElementById('security-tools').scrollIntoView({behavior: 'smooth'});">
+                        <div class="converter-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Security Tools</h3>
+                        <p>Password protect and encrypt files</p>
                     </a>
                 </div>
             </div>
 
             <!-- Image Converters -->
-            <div class="category-section">
+            <div class="category-section" id="image-converters">
                 <div class="category-header">
                     <h2>Image Converters</h2>
                     <p>Convert images between different formats with quality preservation</p>
@@ -1278,7 +1278,7 @@
             </div>
 
             <!-- Video Converters -->
-            <div class="category-section">
+            <div class="category-section" id="video-converters">
                 <div class="category-header">
                     <h2>Video Converters</h2>
                     <p>Convert videos to different formats and resolutions</p>
@@ -1379,7 +1379,7 @@
             </div>
 
             <!-- Audio Converters -->
-            <div class="category-section">
+            <div class="category-section" id="audio-converters">
                 <div class="category-header">
                     <h2>Audio Converters</h2>
                     <p>Convert audio files between formats</p>
@@ -1480,7 +1480,7 @@
             </div>
 
             <!-- Document Converters -->
-            <div class="category-section">
+            <div class="category-section" id="document-converters">
                 <div class="category-header">
                     <h2>Document Converters</h2>
                     <p>Convert documents and presentations to different formats</p>
@@ -1595,7 +1595,7 @@
             </div>
 
             <!-- Archive Converters -->
-            <div class="category-section">
+            <div class="category-section" id="archive-converters">
                 <div class="category-header">
                     <h2>Archive & Compression</h2>
                     <p>Compress and convert archive formats</p>
@@ -1670,6 +1670,72 @@
                         </div>
                         <h3>GZ to ZIP</h3>
                         <p>Convert Gzip to ZIP format</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Tools -->
+            <div class="category-section" id="security-tools">
+                <div class="category-header">
+                    <h2>Security Tools</h2>
+                    <p>Protect and secure your files with encryption and passwords</p>
+                </div>
+                <div class="converter-grid">
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Password Protect PDF</h3>
+                        <p>Add password protection to PDF files</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-unlock"></i>
+                        </div>
+                        <h3>Unlock PDF</h3>
+                        <p>Remove password from PDF files</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Encrypt File</h3>
+                        <p>Encrypt files with AES encryption</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h3>Decrypt File</h3>
+                        <p>Decrypt encrypted files</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-file-archive"></i>
+                        </div>
+                        <h3>Password Protect ZIP</h3>
+                        <p>Add password to ZIP archives</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-signature"></i>
+                        </div>
+                        <h3>Digital Signature</h3>
+                        <p>Sign documents digitally</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                        <h3>Hash Generator</h3>
+                        <p>Generate file checksums (MD5, SHA)</p>
+                    </div>
+                    <div class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <h3>Secure Delete</h3>
+                        <p>Permanently delete files securely</p>
                     </div>
                 </div>
             </div>
