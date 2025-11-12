@@ -1990,8 +1990,8 @@
                 // Create converter page URL
                 const converterUrl = fromFormat.toLowerCase() + '-to-' + toFormat.toLowerCase() + '.html';
                 
-                // Check if page exists, if not, show message
-                window.location.href = converterUrl;
+                // Open in new window/tab
+                window.open(converterUrl, '_blank');
             }
         }
 
