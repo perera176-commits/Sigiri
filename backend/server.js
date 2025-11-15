@@ -8,7 +8,18 @@ const PORT = process.env.PORT || 8080;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/sigiri';
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://sigiri.io',
+    'http://sigiri.io',
+    'https://www.sigiri.io',
+    'http://localhost:3000',
+    'http://localhost:8080'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
