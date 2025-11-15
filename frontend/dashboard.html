@@ -294,6 +294,39 @@
             text-align: center;
             color: #999;
         }
+        .search-no-results i {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .search-no-results p {
+            margin: 10px 0 5px;
+            color: #666;
+            font-weight: 500;
+        }
+        .search-no-results small {
+            color: #999;
+            font-size: 0.85rem;
+        }
+        .search-view-all {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            text-decoration: none;
+            border-radius: 0 0 12px 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+            gap: 10px;
+        }
+        .search-view-all:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #653a8b 100%);
+            transform: translateY(-1px);
+        }
+        .search-view-all i {
+            font-size: 0.9rem;
+        }
 
         /* Quick Actions Icons */
         .quick-actions-icons {
@@ -1179,8 +1212,12 @@
             );
 
             if (filteredConverters.length > 0) {
-                searchResults.innerHTML = filteredConverters.map(converter => `
-                    <a href="converters.html" class="search-result-item">
+                searchResults.innerHTML = filteredConverters.slice(0, 8).map(converter => {
+                    // Convert converter name to URL format (e.g., "JPG to PNG" -> "jpg-to-png.html")
+                    const converterUrl = converter.name.toLowerCase().replace(/ /g, '-') + '.html';
+                    
+                    return `
+                    <a href="${converterUrl}" class="search-result-item" target="_blank">
                         <div class="search-result-icon" style="background: ${converter.gradient}">
                             <i class="fas ${converter.icon}"></i>
                         </div>
@@ -1189,11 +1226,38 @@
                             <p>${converter.description}</p>
                         </div>
                     </a>
-                `).join('');
+                `;
+                }).join('');
+                
+                // Add "View all results" link if there are more than 8 results
+                if (filteredConverters.length > 8) {
+                    searchResults.innerHTML += `
+                        <a href="converters.html?search=${encodeURIComponent(searchTerm)}" class="search-view-all">
+                            View all ${filteredConverters.length} results <i class="fas fa-arrow-right"></i>
+                        </a>
+                    `;
+                }
+                
                 searchResults.classList.add('active');
             } else {
-                searchResults.innerHTML = '<div class="search-no-results">No converters found. Try a different search term.</div>';
+                searchResults.innerHTML = `
+                    <div class="search-no-results">
+                        <i class="fas fa-search" style="font-size: 2rem; color: #ccc; margin-bottom: 10px;"></i>
+                        <p>No converters found for "${searchTerm}"</p>
+                        <small>Try searching for image, video, audio, or document converters</small>
+                    </div>
+                `;
                 searchResults.classList.add('active');
+            }
+        });
+
+        // Handle Enter key to go to converters page
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.trim();
+                if (searchTerm) {
+                    window.location.href = `converters.html?search=${encodeURIComponent(searchTerm)}`;
+                }
             }
         });
 

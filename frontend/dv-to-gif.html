@@ -6,7 +6,11 @@
     <title>DV to GIF Converter - Free Online Converter | SIGIRI</title>
     <meta name="description" content="Convert DV files to GIF format online for free. Fast, secure converter.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+        
+    <!-- Google AdSense - Replace with your actual Publisher ID -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+<style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; }
         .sidebar { width: 250px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 2rem 0; position: fixed; height: 100vh; left: 0; top: 0; border-right: 1px solid rgba(255, 255, 255, 0.2); }
@@ -42,6 +46,21 @@
                 <input type="file" id="fileInput" accept=".dv">
             </div>
             <button class="convert-btn" id="convertBtn">Convert to GIF</button>
+
+            
+            <!-- AdSense Display Ad -->
+            <div style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 10px; text-align: center;">
+                <div style="color: #999; font-size: 0.75rem; margin-bottom: 0.5rem;">Advertisement</div>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </div>
     </div>
     <script>
@@ -51,5 +70,6 @@
         uploadArea.addEventListener('click', () => fileInput.click());
         fileInput.addEventListener('change', (e) => { if (e.target.files.length > 0) convertBtn.classList.add('show'); });
     </script>
+
 </body>
 </html>
