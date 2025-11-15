@@ -179,6 +179,31 @@
             font-size: 0.9rem;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
+        .logout-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+        }
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.35);
+        }
+        .logout-btn:active {
+            transform: translateY(0);
+        }
+        .logout-btn i {
+            font-size: 1rem;
+        }
 
         /* Search Section */
         .search-section {
@@ -1084,6 +1109,10 @@
         <!-- Top Navbar -->
         <div class="top-navbar">
             <div class="navbar-right">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
                 <div class="icon-btn">
                     <i class="fas fa-bell"></i>
                 </div>
@@ -1656,6 +1685,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Logout functionality
+        function handleLogout() {
+            // Show confirmation dialog
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear all user data from localStorage
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('loginMethod');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userPicture');
+                
+                // Show success message
+                alert('You have been logged out successfully!');
+                
+                // Redirect to login page
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Check if user is logged in
+        window.addEventListener('load', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const userEmail = localStorage.getItem('userEmail');
+            
+            // If not logged in, redirect to login page
+            if (!isLoggedIn || isLoggedIn !== 'true') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Update user avatar with email initial if available
+            if (userEmail) {
+                const userAvatar = document.querySelector('.user-avatar');
+                const initial = userEmail.charAt(0).toUpperCase();
+                userAvatar.textContent = initial;
+            }
+        });
+    </script>
 
 </body>
 </html>
