@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SIGIRI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        .login-left {
+            flex: 1;
+            padding: 60px 50px;
+        }
+        .login-right {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            color: white;
+        }
+        .login-right-content {
+            text-align: center;
+        }
+        .login-right h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .login-right p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .login-right i {
+            font-size: 120px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .back-home:hover {
+            color: #667eea;
+        }
+        .back-home i {
+            margin-right: 8px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+        }
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+        }
+        .social-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        .social-btn i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+        .email-btn i {
+            color: #666;
+        }
+        .work-email-btn i {
+            color: #666;
+        }
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            color: #999;
+            position: relative;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        .divider::before {
+            left: 0;
+        }
+        .divider::after {
+            right: 0;
+        }
+        .email-form {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        .email-form.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .toggle-form {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .toggle-form a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+        }
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+        }
+        .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+            .login-right {
+                padding: 40px;
+            }
+            .login-left {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-left">
+            <a href="index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <div class="logo">SIGIRI</div>
+            <h1>Log in or sign up in seconds</h1>
+            <p class="subtitle">Use your email or another service to continue with SIGIRI (it's free)!</p>
+            
+            <div class="success-message" id="successMessage"></div>
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="social-login" id="socialButtons">
+                <button class="social-btn email-btn" onclick="toggleEmailForm()">
+                    <i class="fas fa-envelope"></i>
+                    Continue with email
+                </button>
+                <button class="social-btn work-email-btn" onclick="toggleEmailForm()">
+                    <i class="fas fa-briefcase"></i>
+                    Sign up with your work email
+                </button>
+            </div>
+
+            <form class="email-form" id="emailForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password (min 6 characters)" required minlength="6">
+                </div>
+                <button type="submit" class="submit-btn">Continue</button>
+                <button type="button" class="submit-btn" onclick="backToSocial()" style="background: #6c757d; margin-top: 10px;">
+                    Back to Login Options
+                </button>
+            </form>
+
+            <div class="toggle-form">
+                By continuing, you agree to SIGIRI's <a href="terms-of-service.html">Terms of Service</a>. Read our <a href="privacy-policy.html">Privacy Policy</a>.
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-right-content">
+                <i class="fas fa-sync-alt"></i>
+                <h2>Convert with ease</h2>
+                <p>Transform your files instantly with AI-powered conversion tools</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle email form visibility
+        function toggleEmailForm() {
+            const form = document.getElementById('emailForm');
+            const socialButtons = document.getElementById('socialButtons');
+            
+            form.classList.add('active');
+            socialButtons.style.display = 'none';
+            
+            // Clear any previous messages
+            hideMessages();
+        }
+
+        // Back to social login options
+        function backToSocial() {
+            const form = document.getElementById('emailForm');
+            const socialButtons = document.getElementById('socialButtons');
+            
+            form.classList.remove('active');
+            socialButtons.style.display = 'flex';
+            
+            // Clear form
+            document.getElementById('emailForm').reset();
+            hideMessages();
+        }
+
+        // Handle email form submission
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Basic validation
+            if (!email || !password) {
+                showError('Please fill in all fields');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('Password must be at least 6 characters');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+            
+            showSuccess('Creating your account...');
+            
+            // Simulate account creation/login
+            setTimeout(() => {
+                // Store user info in localStorage
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('loginMethod', 'email');
+                localStorage.setItem('userEmail', email);
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        });
+
+        // Show success message
+        function showSuccess(message) {
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            errorMsg.classList.remove('show');
+            successMsg.textContent = message;
+            successMsg.classList.add('show');
+        }
+
+        // Show error message
+        function showError(message) {
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            successMsg.classList.remove('show');
+            errorMsg.textContent = message;
+            errorMsg.classList.add('show');
+        }
+
+        // Hide all messages
+        function hideMessages() {
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('errorMessage').classList.remove('show');
+        }
+
+        // Check if user is already logged in
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                // User is already logged in, redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>
