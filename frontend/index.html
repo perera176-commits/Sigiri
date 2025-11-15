@@ -270,6 +270,117 @@
             color: #888;
             font-size: 1rem;
         }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        .info-section {
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        .info-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .info-section p {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .feature-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+        }
+        .feature-box i {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .feature-box h3 {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .feature-box p {
+            color: #666;
+            text-align: left;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .how-it-works {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 20px;
+            margin: 60px 0;
+        }
+        .steps-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .step h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .step p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
         @media (max-width: 700px) {
             .hero h1 {
                 font-size: 2.2rem;
@@ -279,6 +390,13 @@
             }
             .tools-grid {
                 grid-template-columns: 1fr;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .info-section h2 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -293,8 +411,8 @@
         <div class="logo">SIGIRI</div>
                 <nav>
             <a href="index.html">Home</a>
-            <a href="features.html">Features</a>
-            <a href="pricing.html">Pricing</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
         </nav>
         <div class="nav-actions">
             <a href="login.html" class="nav-btn btn-login">Log in</a>
@@ -302,47 +420,191 @@
         </div>
     </div>
     <section class="hero">
-        <h1>AI-Powered Design Studio</h1>
-        <p>Create stunning graphics, presentations, and more with Sigiri's intelligent design tools. Let AI do the heavy lifting!</p>
-        <button class="cta-btn" onclick="window.location.href='login.html'"><span>Start Designing</span></button>
+        <h1>AI-Powered File Converters</h1>
+        <p>Transform your files instantly with our intelligent AI-powered conversion tools. Convert images, videos, audio, documents and more - all in one place!</p>
+        <button class="cta-btn" onclick="window.location.href='login.html'"><span>Start Converting Now</span></button>
     </section>
+    
+    <section class="how-it-works">
+        <div class="info-section">
+            <h2>How It Works</h2>
+            <p>Converting your files with SIGIRI is incredibly simple. Our AI-powered platform handles all the technical complexity, so you can focus on what matters most.</p>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Upload Your File</h3>
+                <p>Drag and drop your file or click to browse. We support over 150 file formats including images, videos, audio, and documents.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Choose Output Format</h3>
+                <p>Select your desired output format from our extensive list. Our AI automatically optimizes conversion settings for best quality.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Download Converted File</h3>
+                <p>Your file is processed in seconds. Download it immediately or save it to your account for later access.</p>
+            </div>
+        </div>
+    </section>
+    
     <section class="tools-section">
-        <div class="tools-title">Popular Design Tools</div>
+        <div class="tools-title">Popular Converter Tools</div>
         <div class="tools-grid">
             <a href="login.html" class="tool-card">
                 <i class="fas fa-image"></i>
-                <h3>Photo Editor</h3>
-                <p>Edit, crop, and enhance your images with powerful yet simple tools.</p>
-            </a>
-            <a href="login.html" class="tool-card">
-                <i class="fas fa-file-powerpoint"></i>
-                <h3>Presentation Maker</h3>
-                <p>Build beautiful slides for work, school, or events in minutes.</p>
-            </a>
-            <a href="login.html" class="tool-card">
-                <i class="fas fa-file-alt"></i>
-                <h3>Poster & Flyer Designer</h3>
-                <p>Design eye-catching posters and flyers for any occasion.</p>
+                <h3>Image Converters</h3>
+                <p>Convert JPG, PNG, WEBP, SVG, GIF and more. Compress and optimize images instantly.</p>
             </a>
             <a href="login.html" class="tool-card">
                 <i class="fas fa-video"></i>
-                <h3>Video Creator</h3>
-                <p>Make engaging videos and animations with drag-and-drop ease.</p>
+                <h3>Video Converters</h3>
+                <p>Transform MP4, AVI, MOV, MKV, WEBM formats. Convert videos to GIFs and more.</p>
             </a>
             <a href="login.html" class="tool-card">
-                <i class="fas fa-font"></i>
-                <h3>Logo Maker</h3>
-                <p>Create a unique logo for your brand or project in seconds.</p>
+                <i class="fas fa-music"></i>
+                <h3>Audio Converters</h3>
+                <p>Convert MP3, WAV, M4A, FLAC, OGG, AAC formats with high quality output.</p>
             </a>
             <a href="login.html" class="tool-card">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Social Media Posts</h3>
-                <p>Design posts and stories for Instagram, Facebook, and more.</p>
+                <i class="fas fa-file-pdf"></i>
+                <h3>Document Converters</h3>
+                <p>Convert PDF to Word, Excel to PDF, PowerPoint to PDF and image to PDF.</p>
+            </a>
+            <a href="login.html" class="tool-card">
+                <i class="fas fa-file-archive"></i>
+                <h3>Archive & Compression</h3>
+                <p>Convert ZIP, RAR, 7Z formats. Compress files to reduce size efficiently.</p>
+            </a>
+            <a href="login.html" class="tool-card">
+                <i class="fas fa-wand-magic-sparkles"></i>
+                <h3>AI-Powered Tools</h3>
+                <p>Smart conversions with AI enhancement, quality optimization, and batch processing.</p>
             </a>
         </div>
     </section>
+    
+    <section class="info-section">
+        <h2>Why Choose SIGIRI for File Conversion?</h2>
+        <p>SIGIRI combines cutting-edge AI technology with user-friendly design to deliver the best file conversion experience. Whether you're a professional designer, content creator, student, or business owner, our platform provides the tools you need to work efficiently.</p>
+        <div class="features-grid">
+            <div class="feature-box">
+                <i class="fas fa-bolt"></i>
+                <h3>Lightning Fast Processing</h3>
+                <p>Our AI-powered conversion engine processes files in seconds, not minutes. Advanced algorithms and cloud infrastructure ensure maximum speed without compromising quality.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure & Private</h3>
+                <p>Your files are encrypted during transfer and automatically deleted within 24 hours. We never access, share, or store your files permanently. Your privacy is our priority.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-check-circle"></i>
+                <h3>High Quality Output</h3>
+                <p>Our intelligent algorithms automatically optimize conversion settings to deliver the best possible output quality while maintaining reasonable file sizes for easy sharing.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Works on Any Device</h3>
+                <p>Access SIGIRI from desktop, tablet, or mobile. No software installation required. Just upload your file, convert, and download - it's that simple.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-infinity"></i>
+                <h3>Free & Unlimited</h3>
+                <p>Enjoy completely free access to all our conversion tools with unlimited conversions. No subscriptions, no hidden fees, no credit card required.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-users"></i>
+                <h3>Trusted Worldwide</h3>
+                <p>Join millions of users in over 150 countries who trust SIGIRI for their file conversion needs. We've processed over 10 million files with 99.9% success rate.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="info-section">
+        <h2>Supported File Formats</h2>
+        <p>SIGIRI supports over 150 file formats across multiple categories. Our AI-powered conversion engine handles everything from common formats to specialized industry standards.</p>
+        <div class="features-grid">
+            <div class="feature-box">
+                <i class="fas fa-image"></i>
+                <h3>Image Formats</h3>
+                <p><strong>Convert between:</strong> JPG, JPEG, PNG, GIF, WEBP, SVG, TIFF, BMP, ICO, PSD, RAW, HEIC, and more. Includes compression and optimization tools.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-video"></i>
+                <h3>Video Formats</h3>
+                <p><strong>Convert between:</strong> MP4, AVI, MOV, MKV, WEBM, FLV, WMV, MPEG, 3GP, and more. Supports HD and 4K video conversion with quality preservation.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-music"></i>
+                <h3>Audio Formats</h3>
+                <p><strong>Convert between:</strong> MP3, WAV, M4A, FLAC, OGG, AAC, WMA, AIFF, ALAC, and more. High-fidelity audio conversion with bitrate control.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-file-pdf"></i>
+                <h3>Document Formats</h3>
+                <p><strong>Convert between:</strong> PDF, Word (DOC, DOCX), Excel (XLS, XLSX), PowerPoint (PPT, PPTX), TXT, RTF, ODT, and more. Preserve formatting and layouts.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-file-archive"></i>
+                <h3>Archive Formats</h3>
+                <p><strong>Convert between:</strong> ZIP, RAR, 7Z, TAR, GZ, BZ2, and more. Compress files to save space and bandwidth with adjustable compression levels.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-code"></i>
+                <h3>Code & Data Formats</h3>
+                <p><strong>Convert between:</strong> JSON, XML, CSV, YAML, SQL, HTML, and more. Perfect for developers and data analysts working with structured data.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="info-section">
+        <h2>Common Use Cases</h2>
+        <p>SIGIRI is designed to handle a wide variety of file conversion needs across different industries and use cases.</p>
+        <div class="features-grid">
+            <div class="feature-box">
+                <i class="fas fa-palette"></i>
+                <h3>Creative Professionals</h3>
+                <p>Designers and photographers use SIGIRI to convert images for web optimization, print preparation, and client deliveries. Batch convert entire projects quickly.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Students & Educators</h3>
+                <p>Convert documents for assignments, presentations for different platforms, and educational materials into accessible formats for all students.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-briefcase"></i>
+                <h3>Business Teams</h3>
+                <p>Convert reports, presentations, and documents for clients and colleagues. Compress files for email attachments and secure file sharing.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-video"></i>
+                <h3>Content Creators</h3>
+                <p>YouTubers, podcasters, and social media influencers convert videos and audio files for different platforms with optimal quality and file size.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Developers</h3>
+                <p>Convert data formats for APIs, transform images for app development, and optimize media files for web and mobile applications.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-home"></i>
+                <h3>Personal Use</h3>
+                <p>Convert family photos, vacation videos, music collections, and documents for personal archiving, sharing, and device compatibility.</p>
+            </div>
+        </div>
+    </section>
+    
     <div class="footer">
-        &copy; 2025 Sigiri. Inspired by Canva. All rights reserved.
+        <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="cookie-policy.html">Cookie Policy</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="about.html">About Us</a>
+        </div>
+        &copy; 2025 Sigiri. AI-Powered File Converters. All rights reserved.
     </div>
 </body>
 </html>

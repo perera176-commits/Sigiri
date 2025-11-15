@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sigiri Design Studio</title>
+    <title>Login - SIGIRI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -131,6 +131,9 @@
         .email-btn i {
             color: #666;
         }
+        .work-email-btn i {
+            color: #666;
+        }
         .divider {
             text-align: center;
             margin: 30px 0;
@@ -154,9 +157,20 @@
         }
         .email-form {
             display: none;
+            animation: fadeIn 0.3s ease-in;
         }
         .email-form.active {
             display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-group {
             margin-bottom: 20px;
@@ -196,10 +210,14 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
         .toggle-form {
             text-align: center;
             margin-top: 25px;
             color: #666;
+            font-size: 0.9rem;
         }
         .toggle-form a {
             color: #667eea;
@@ -209,31 +227,31 @@
         .toggle-form a:hover {
             text-decoration: underline;
         }
-        .work-email-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #333;
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
         }
-        .work-email-btn:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
         }
-        .work-email-btn i {
-            margin-right: 12px;
-            font-size: 1.3rem;
-            color: #666;
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
         }
-        .work-email-btn i {
-            margin-right: 8px;
+        .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
         }
         @media (max-width: 768px) {
             .login-container {
@@ -256,14 +274,17 @@
             </a>
             <div class="logo">SIGIRI</div>
             <h1>Log in or sign up in seconds</h1>
-            <p class="subtitle">Use your email or another service to continue with Sigiri (it's free)!</p>
+            <p class="subtitle">Use your email or another service to continue with SIGIRI (it's free)!</p>
             
-            <div class="social-login">
-                <button class="social-btn google-btn">
+            <div class="success-message" id="successMessage"></div>
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="social-login" id="socialButtons">
+                <button class="social-btn google-btn" onclick="handleGoogleLogin()">
                     <i class="fab fa-google"></i>
                     Continue with Google
                 </button>
-                <button class="social-btn facebook-btn">
+                <button class="social-btn facebook-btn" onclick="handleFacebookLogin()">
                     <i class="fab fa-facebook"></i>
                     Continue with Facebook
                 </button>
@@ -271,7 +292,7 @@
                     <i class="fas fa-envelope"></i>
                     Continue with email
                 </button>
-                <button class="social-btn work-email-btn">
+                <button class="social-btn work-email-btn" onclick="toggleEmailForm()">
                     <i class="fas fa-briefcase"></i>
                     Sign up with your work email
                 </button>
@@ -284,45 +305,154 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <input type="password" id="password" placeholder="Enter your password (min 6 characters)" required minlength="6">
                 </div>
                 <button type="submit" class="submit-btn">Continue</button>
+                <button type="button" class="submit-btn" onclick="backToSocial()" style="background: #6c757d; margin-top: 10px;">
+                    Back to Login Options
+                </button>
             </form>
 
             <div class="toggle-form">
-                By continuing, you agree to Sigiri's <a href="#">Terms of Use</a>. Read our <a href="#">Privacy Policy</a>.
+                By continuing, you agree to SIGIRI's <a href="terms-of-service.html">Terms of Service</a>. Read our <a href="privacy-policy.html">Privacy Policy</a>.
             </div>
         </div>
         <div class="login-right">
             <div class="login-right-content">
-                <i class="fas fa-palette"></i>
-                <h2>Design with ease</h2>
-                <p>Create stunning graphics and presentations with AI-powered tools</p>
+                <i class="fas fa-sync-alt"></i>
+                <h2>Convert with ease</h2>
+                <p>Transform your files instantly with AI-powered conversion tools</p>
             </div>
         </div>
     </div>
 
     <script>
+        // Toggle email form visibility
         function toggleEmailForm() {
             const form = document.getElementById('emailForm');
-            form.classList.toggle('active');
+            const socialButtons = document.getElementById('socialButtons');
+            
+            form.classList.add('active');
+            socialButtons.style.display = 'none';
+            
+            // Clear any previous messages
+            hideMessages();
         }
 
-        // Handle form submission
+        // Back to social login options
+        function backToSocial() {
+            const form = document.getElementById('emailForm');
+            const socialButtons = document.getElementById('socialButtons');
+            
+            form.classList.remove('active');
+            socialButtons.style.display = 'flex';
+            
+            // Clear form
+            document.getElementById('emailForm').reset();
+            hideMessages();
+        }
+
+        // Handle Google login
+        function handleGoogleLogin() {
+            showSuccess('Connecting to Google...');
+            // Simulate login process
+            setTimeout(() => {
+                // Store user info in localStorage
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('loginMethod', 'google');
+                localStorage.setItem('userEmail', 'user@gmail.com');
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        }
+
+        // Handle Facebook login
+        function handleFacebookLogin() {
+            showSuccess('Connecting to Facebook...');
+            // Simulate login process
+            setTimeout(() => {
+                // Store user info in localStorage
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('loginMethod', 'facebook');
+                localStorage.setItem('userEmail', 'user@facebook.com');
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        }
+
+        // Handle email form submission
         document.getElementById('emailForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Redirect to dashboard
-            window.location.href = 'dashboard.html';
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Basic validation
+            if (!email || !password) {
+                showError('Please fill in all fields');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('Password must be at least 6 characters');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+            
+            showSuccess('Creating your account...');
+            
+            // Simulate account creation/login
+            setTimeout(() => {
+                // Store user info in localStorage
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('loginMethod', 'email');
+                localStorage.setItem('userEmail', email);
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }, 1500);
         });
 
-        // Handle social login buttons
-        document.querySelectorAll('.social-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (!this.classList.contains('email-btn')) {
-                    // Redirect to dashboard for social logins
-                    window.location.href = 'dashboard.html';
-                }
-            });
+        // Show success message
+        function showSuccess(message) {
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            errorMsg.classList.remove('show');
+            successMsg.textContent = message;
+            successMsg.classList.add('show');
+        }
+
+        // Show error message
+        function showError(message) {
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            successMsg.classList.remove('show');
+            errorMsg.textContent = message;
+            errorMsg.classList.add('show');
+        }
+
+        // Hide all messages
+        function hideMessages() {
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('errorMessage').classList.remove('show');
+        }
+
+        // Check if user is already logged in
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                // User is already logged in, redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }
         });
     </script>
 </body>

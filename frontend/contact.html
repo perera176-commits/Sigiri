@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - SIGIRI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #764ba2;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+        }
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .page-header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
+        }
+        .contact-card i {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        .contact-card h3 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .contact-card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .contact-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+        .form-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        .form-section h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        .faq-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            margin-top: 40px;
+        }
+        .faq-section h2 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-item h3 {
+            color: #667eea;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .faq-item p {
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            .form-section,
+            .faq-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="logo">SIGIRI</a>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Contact Us</h1>
+            <p>Have questions? We're here to help! Reach out to us through any of the following channels.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Support</h3>
+                <p>Get help via email</p>
+                <a href="mailto:support@sigiri.com">support@sigiri.com</a>
+            </div>
+
+            <div class="contact-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Privacy Inquiries</h3>
+                <p>Data protection questions</p>
+                <a href="mailto:privacy@sigiri.com">privacy@sigiri.com</a>
+            </div>
+
+            <div class="contact-card">
+                <i class="fas fa-briefcase"></i>
+                <h3>Business Partnerships</h3>
+                <p>Collaboration opportunities</p>
+                <a href="mailto:business@sigiri.com">business@sigiri.com</a>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>Send Us a Message</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a subject</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="support">Technical Support</option>
+                        <option value="feature">Feature Request</option>
+                        <option value="bug">Report a Bug</option>
+                        <option value="privacy">Privacy Concern</option>
+                        <option value="partnership">Business Partnership</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required placeholder="Tell us how we can help you..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3><i class="fas fa-question-circle"></i> How long does file conversion take?</h3>
+                <p>Most file conversions are completed within seconds to a few minutes, depending on file size and format. Larger files may take longer.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3><i class="fas fa-question-circle"></i> Are my files secure?</h3>
+                <p>Yes! All uploaded files are encrypted during transfer and automatically deleted from our servers within 24 hours or immediately after download.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3><i class="fas fa-question-circle"></i> What file formats do you support?</h3>
+                <p>We support a wide range of formats including images (JPG, PNG, GIF, WEBP), videos (MP4, AVI, MOV), audio (MP3, WAV, FLAC), documents (PDF, Word, Excel), and archives (ZIP, RAR).</p>
+            </div>
+
+            <div class="faq-item">
+                <h3><i class="fas fa-question-circle"></i> Is there a file size limit?</h3>
+                <p>All users can convert files up to 100MB per file completely free. We're working on increasing this limit and adding support for larger files in the future.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3><i class="fas fa-question-circle"></i> Is SIGIRI really free?</h3>
+                <p>Yes! SIGIRI is completely free to use. There are no subscription fees, no hidden costs, and no credit card required. All features are available to everyone at no charge.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3><i class="fas fa-question-circle"></i> How do you support the service if it's free?</h3>
+                <p>We display advertisements on our website to cover the costs of running the service. This allows us to keep all conversion tools free for everyone.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3><i class="fas fa-question-circle"></i> How do I report copyright infringement?</h3>
+                <p>To report copyright infringement, please send a DMCA notice to <a href="mailto:dmca@sigiri.com">dmca@sigiri.com</a> with all required information.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3><i class="fas fa-question-circle"></i> What is your response time for support inquiries?</h3>
+                <p>We aim to respond to all support inquiries within 24-48 hours on business days. We treat all users equally and provide the best support we can.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you would typically send the form data to your server
+            // For now, we'll just show a success message
+            alert('Thank you for contacting us! We will respond to your inquiry within 24-48 hours.');
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html>
