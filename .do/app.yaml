@@ -1,0 +1,31 @@
+name: sigiri-backend
+region: nyc
+services:
+  - name: api
+    github:
+      repo: perera176-commits/Sigiri
+      branch: main
+      deploy_on_push: true
+    source_dir: /backend
+    run_command: node server.js
+    environment_slug: node-js
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    http_port: 8080
+    routes:
+      - path: /
+    health_check:
+      http_path: /
+    envs:
+      - key: PORT
+        value: "8080"
+      - key: MONGO_URI
+        value: "mongodb+srv://doadmin:8R0H2u1j39k4X5nr@sigiri-db-51861e51.mongo.ondigitalocean.com/sigiri?tls=true&authSource=admin"
+        type: SECRET
+      - key: JWT_SECRET
+        value: "sigiri-super-secret-jwt-key-change-in-production-2025"
+        type: SECRET
+      - key: FRONTEND_URL
+        value: "https://sigiri.io"
+      - key: NODE_ENV
+        value: "production"
