@@ -306,4 +306,54 @@ router.post('/reset-password/:token', async (req, res) => {
     }
 });
 
+// @route   POST /api/auth/create-test-user
+// @desc    Create a test user (for development/testing only)
+// @access  Public (should be protected in production!)
+router.post('/create-test-user', async (req, res) => {
+    try {
+        const { email, password, userName } = req.body;
+
+        // Default values
+        const testEmail = email || 'test@sigiri.com';
+        const testPassword = password || '654321';
+        const testUserName = userName || 'Test User';
+
+        // Check if user already exists
+        const existingUser = await User.findOne({ email: testEmail });
+        if (existingUser) {
+            // Delete and recreate
+            await User.deleteOne({ email: testEmail });
+        }
+
+        // Create new user with hashed password
+        const user = new User({
+            email: testEmail,
+            password: testPassword, // Will be hashed by the pre-save hook
+            userName: testUserName,
+            isVerified: true // Auto-verify for testing
+        });
+
+        await user.save();
+
+        res.json({
+            success: true,
+            message: 'Test user created successfully',
+            user: {
+                email: testEmail,
+                password: testPassword, // Only showing this for testing
+                userName: testUserName,
+                isVerified: true
+            }
+        });
+
+    } catch (error) {
+        console.error('Create test user error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error creating test user',
+            error: error.message
+        });
+    }
+});
+
 module.exports = router;
