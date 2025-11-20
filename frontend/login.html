@@ -248,6 +248,7 @@
             <h1>Welcome Back!</h1>
             <p class="subtitle">Login or create an account to access all features</p>
             
+            <!-- Messages will appear here dynamically after user actions -->
             <div class="message success-message" id="successMessage"></div>
             <div class="message error-message" id="errorMessage"></div>
             <div class="message info-message" id="infoMessage"></div>
@@ -372,9 +373,15 @@
                         window.location.href = 'dashboard.html';
                     }, 1000);
                 } else {
+                    // Handle different error cases
                     if (data.needsVerification) {
-                        showInfo(data.message + ' <a href="#" onclick="resendVerification(\'' + email + '\'); return false;">Resend verification email</a>');
+                        // User exists but email not verified
+                        showInfo('Please verify your email before logging in. <a href="#" onclick="resendVerification(\'' + email + '\'); return false;">Resend verification email</a>');
+                    } else if (response.status === 404 || data.message.toLowerCase().includes('not found') || data.message.toLowerCase().includes('no user')) {
+                        // User doesn't exist
+                        showError('Account not found. Please <a href="#" onclick="switchTab(\'register\'); return false;" style="color: #721c24; text-decoration: underline;">sign up</a> first.');
                     } else {
+                        // Other errors (wrong password, etc.)
                         showError(data.message);
                     }
                 }
