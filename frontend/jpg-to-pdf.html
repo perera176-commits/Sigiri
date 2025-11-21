@@ -123,8 +123,38 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            padding: 8px;
             border-bottom: 1px solid var(--border);
+            cursor: move;
+            transition: all 0.2s;
+            border-radius: 4px;
+            margin-bottom: 2px;
+        }
+        
+        .file-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .file-item.dragging {
+            opacity: 0.5;
+            background-color: var(--secondary);
+            border: 2px dashed var(--primary);
+        }
+        
+        .file-item.drag-over {
+            border-top: 3px solid var(--primary);
+            margin-top: 8px;
+        }
+        
+        .drag-handle {
+            color: #999;
+            margin-right: 8px;
+            cursor: grab;
+            font-size: 1.1rem;
+        }
+        
+        .drag-handle:active {
+            cursor: grabbing;
         }
         
         .file-item-name {
@@ -699,6 +729,14 @@
                 selectedFiles.forEach((file, index) => {
                     const listItem = document.createElement('li');
                     listItem.className = 'file-item';
+                    listItem.draggable = true;
+                    listItem.dataset.index = index;
+                    
+                    // Drag handle
+                    const dragHandle = document.createElement('span');
+                    dragHandle.className = 'drag-handle';
+                    dragHandle.innerHTML = '<i class="fas fa-grip-vertical"></i>';
+                    dragHandle.title = 'Drag to reorder';
                     
                     const fileName = document.createElement('span');
                     fileName.className = 'file-item-name';
@@ -712,7 +750,9 @@
                     const removeBtn = document.createElement('span');
                     removeBtn.className = 'remove-file';
                     removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    removeBtn.addEventListener('click', function() {
+                    removeBtn.title = 'Remove file';
+                    removeBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
                         selectedFiles.splice(index, 1);
                         updateFileList();
                         updatePreview();
@@ -720,10 +760,83 @@
                         fileInput.value = ''; // Reset file input
                     });
                     
+                    // Drag event listeners
+                    listItem.addEventListener('dragstart', handleDragStart);
+                    listItem.addEventListener('dragover', handleDragOver);
+                    listItem.addEventListener('drop', handleDrop);
+                    listItem.addEventListener('dragenter', handleDragEnter);
+                    listItem.addEventListener('dragleave', handleDragLeave);
+                    listItem.addEventListener('dragend', handleDragEnd);
+                    
+                    listItem.appendChild(dragHandle);
                     listItem.appendChild(fileName);
                     listItem.appendChild(fileSize);
                     listItem.appendChild(removeBtn);
                     fileList.appendChild(listItem);
+                });
+            }
+            
+            // Drag and drop reordering functions
+            let draggedItem = null;
+            let draggedIndex = null;
+            
+            function handleDragStart(e) {
+                draggedItem = this;
+                draggedIndex = parseInt(this.dataset.index);
+                this.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.innerHTML);
+            }
+            
+            function handleDragOver(e) {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                }
+                e.dataTransfer.dropEffect = 'move';
+                return false;
+            }
+            
+            function handleDragEnter(e) {
+                if (this !== draggedItem) {
+                    this.classList.add('drag-over');
+                }
+            }
+            
+            function handleDragLeave(e) {
+                this.classList.remove('drag-over');
+            }
+            
+            function handleDrop(e) {
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                }
+                
+                if (draggedItem !== this) {
+                    const dropIndex = parseInt(this.dataset.index);
+                    
+                    // Reorder the files array
+                    const draggedFile = selectedFiles[draggedIndex];
+                    selectedFiles.splice(draggedIndex, 1);
+                    
+                    // Calculate new index after removal
+                    const newIndex = draggedIndex < dropIndex ? dropIndex - 1 : dropIndex;
+                    selectedFiles.splice(newIndex, 0, draggedFile);
+                    
+                    // Update the UI
+                    updateFileList();
+                    updatePreview();
+                }
+                
+                return false;
+            }
+            
+            function handleDragEnd(e) {
+                this.classList.remove('dragging');
+                
+                // Remove all drag-over classes
+                const items = fileList.querySelectorAll('.file-item');
+                items.forEach(item => {
+                    item.classList.remove('drag-over');
                 });
             }
             
