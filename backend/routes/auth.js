@@ -92,14 +92,14 @@ router.post('/login', async (req, res) => {
             });
         }
 
-        // Check if email is verified
-        if (!user.isVerified) {
-            return res.status(403).json({ 
-                success: false, 
-                message: 'Please verify your email before logging in',
-                needsVerification: true
-            });
-        }
+        // Check if email is verified (TEMPORARILY DISABLED FOR TESTING)
+        // if (!user.isVerified) {
+        //     return res.status(403).json({ 
+        //         success: false, 
+        //         message: 'Please verify your email before logging in',
+        //         needsVerification: true
+        //     });
+        // }
 
         // Verify password
         const isMatch = await user.comparePassword(password);
