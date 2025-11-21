@@ -313,8 +313,19 @@
     </div>
 
     <script>
-        // API Configuration
-        const API_URL = 'https://backend-yanie.ondigitalocean.app/api/auth';
+        // API Configuration - Auto-detect environment
+        // If running locally (file:// or localhost), use local backend
+        // Otherwise use production backend
+        const isLocal = window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1' || 
+                       window.location.protocol === 'file:';
+        
+        const API_URL = isLocal 
+            ? 'http://localhost:8080/api/auth'  // Local development
+            : 'https://backend-yanie.ondigitalocean.app/api/auth';  // Production
+        
+        console.log('Environment:', isLocal ? 'Local Development' : 'Production');
+        console.log('API URL:', API_URL);
 
         // Switch between login and register tabs
         function switchTab(tab) {

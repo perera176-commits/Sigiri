@@ -51,6 +51,10 @@ app.get('/', (req, res) => {
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
+// Conversion routes
+const convertRoutes = require('./routes/convert');
+app.use('/api/convert', convertRoutes);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err);
