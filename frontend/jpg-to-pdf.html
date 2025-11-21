@@ -34,11 +34,37 @@
             background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
             min-height: 100vh;
             padding: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .side-ad {
+            width: 160px;
+            flex-shrink: 0;
+        }
+        
+        .side-ad-sticky {
+            position: sticky;
+            top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .ad-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .main-content {
             max-width: 1200px;
-            margin: 0 auto;
+            flex: 1;
         }
         
         .container {
@@ -86,6 +112,13 @@
         }
         
         @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .side-ad {
+                display: none;
+            }
             .main-content {
                 padding: 1rem;
             }
@@ -458,6 +491,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Left Side Ad -->
+    <div class="side-ad">
+        <div class="side-ad-sticky">
+            <div class="ad-label">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="vertical"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
     <div class="main-content">
         <div class="container">
             <div class="premium-badge">FREE TOOL</div>
@@ -478,12 +526,12 @@
                     <button class="btn btn-outline">Browse Files</button>
                     <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png" style="display: none;">
                     <p style="margin-top: 15px; font-size: 0.85rem; color: #999;">
-                        Max 5 images • 10MB per file • JPG, JPEG, PNG
+                        Max 20 images • 10MB per file • JPG, JPEG, PNG
                     </p>
                 </div>
                 
                 <div class="file-info">
-                    <p><strong>Selected Files:</strong> <span id="fileCount">0</span> / 5</p>
+                    <p><strong>Selected Files:</strong> <span id="fileCount">0</span> / 20</p>
                     <ul class="file-list" id="fileList">
                         <!-- File items will be added here -->
                     </ul>
@@ -657,6 +705,21 @@
         </footer>
         </div>
     </div>
+    
+    <!-- Right Side Ad -->
+    <div class="side-ad">
+        <div class="side-ad-sticky">
+            <div class="ad-label">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="vertical"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
 
     <!-- Include the converter library -->
     <script src="js/converter.js"></script>
@@ -690,7 +753,7 @@
             
             // File handling
             let selectedFiles = [];
-            const MAX_FILES = 5;
+            const MAX_FILES = 20;
             const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
             
             // Upload area click event
