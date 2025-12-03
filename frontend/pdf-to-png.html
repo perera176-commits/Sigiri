@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVG to PNG Converter - SIGIRI</title>
+    <title>PDF to PNG Converter - SIGIRI</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -408,28 +408,28 @@
 <body>
     <div class="container">
         <header>
-            <h1>SVG to PNG Converter</h1>
-            <p class="subtitle">Convert SVG vector graphics to PNG raster images</p>
+            <h1>PDF to PNG Converter</h1>
+            <p class="subtitle">Convert PDF pages to PNG images with high resolution</p>
         </header>
         
         <div class="main-content">
             <div class="upload-section">
-                <h2><i class="fas fa-cloud-upload-alt"></i> Upload SVG Files</h2>
+                <h2><i class="fas fa-cloud-upload-alt"></i> Upload PDF Files</h2>
                 <div class="upload-area" id="uploadArea">
                     <div class="upload-icon">
-                        <i class="fas fa-vector-square"></i>
+                        <i class="fas fa-file-pdf"></i>
                     </div>
-                    <p>Drag & drop your SVG files here</p>
+                    <p>Drag & drop your PDF files here</p>
                     <p style="margin: 10px 0; color: #999;">or</p>
                     <button class="btn btn-outline">Browse Files</button>
-                    <input type="file" id="fileInput" multiple accept=".svg" style="display: none;">
+                    <input type="file" id="fileInput" multiple accept=".pdf" style="display: none;">
                     <p style="margin-top: 15px; font-size: 0.85rem; color: #999;">
-                        Max 20 files • 5MB per file • SVG
+                        Max 10 files • 25MB per file • PDF
                     </p>
                 </div>
                 
                 <div class="file-info">
-                    <p><strong>Selected Files:</strong> <span id="fileCount">0</span> / 20</p>
+                    <p><strong>Selected Files:</strong> <span id="fileCount">0</span> / 10</p>
                     <ul class="file-list" id="fileList"></ul>
                 </div>
                 
@@ -441,27 +441,27 @@
                 
                 <div class="option-group">
                     <div class="option-title">
-                        <i class="fas fa-expand-arrows-alt"></i> Scale Factor
+                        <i class="fas fa-expand"></i> Resolution (DPI)
                     </div>
                     <div class="slider-container">
-                        <span>1x</span>
-                        <input type="range" min="1" max="10" value="1" class="slider" id="scaleSlider">
-                        <span>10x</span>
-                        <div class="value-display" id="scaleValue">1x</div>
+                        <span>72</span>
+                        <input type="range" min="72" max="600" value="300" step="50" class="slider" id="dpiSlider">
+                        <span>600</span>
+                        <div class="value-display" id="dpiValue">300</div>
                     </div>
-                    <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">Higher scale = larger output image</p>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">Higher DPI = better quality, larger files</p>
                 </div>
                 
                 <div class="option-group">
                     <div class="option-title">
-                        <i class="fas fa-fill-drip"></i> Background
+                        <i class="fas fa-file-alt"></i> Page Selection
                     </div>
                     <div class="btn-group">
-                        <button class="btn btn-outline active" data-bg="transparent">Transparent</button>
-                        <button class="btn btn-outline" data-bg="white">White</button>
-                        <button class="btn btn-outline" data-bg="black">Black</button>
+                        <button class="btn btn-outline active" data-pages="all">All Pages</button>
+                        <button class="btn btn-outline" data-pages="first">First Page</button>
+                        <button class="btn btn-outline" data-pages="range">Page Range</button>
                     </div>
-                    <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">Background color for PNG</p>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">Choose which pages to convert</p>
                 </div>
                 
                 <div class="toggle-advanced" id="toggleAdvanced">
@@ -471,19 +471,19 @@
                 <div class="advanced-options" id="advancedOptions">
                     <div class="option-group">
                         <div class="option-title">
-                            <i class="fas fa-cogs"></i> Rendering Options
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="preserveAspectRatio" checked>
-                            <label for="preserveAspectRatio">Preserve aspect ratio</label>
+                            <i class="fas fa-cogs"></i> PDF Processing Options
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="antiAliasing" checked>
-                            <label for="antiAliasing">Anti-aliasing (smoother edges)</label>
+                            <label for="antiAliasing">Anti-aliasing (smoother text)</label>
                         </div>
                         <div class="checkbox-group">
-                            <input type="checkbox" id="optimizePng">
-                            <label for="optimizePng">Optimize PNG file size</label>
+                            <input type="checkbox" id="preserveTransparency" checked>
+                            <label for="preserveTransparency">Preserve transparency</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="grayscale">
+                            <label for="grayscale">Convert to grayscale</label>
                         </div>
                     </div>
                     
@@ -517,8 +517,8 @@
                 <i class="fas fa-eye"></i> Preview
             </h2>
             <div class="preview-area" id="previewArea">
-                <i class="fas fa-vector-square" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i>
-                <p>Select SVG files to see preview</p>
+                <i class="fas fa-file-pdf" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i>
+                <p>Select PDF files to see preview</p>
             </div>
         </div>
         
@@ -543,20 +543,20 @@
             const toggleAdvanced = document.getElementById('toggleAdvanced');
             const advancedOptions = document.getElementById('advancedOptions');
             const warningMessage = document.getElementById('warningMessage');
-            const scaleSlider = document.getElementById('scaleSlider');
-            const scaleValue = document.getElementById('scaleValue');
+            const dpiSlider = document.getElementById('dpiSlider');
+            const dpiValue = document.getElementById('dpiValue');
             const compressionSlider = document.getElementById('compressionSlider');
             const compressionValue = document.getElementById('compressionValue');
             
-            const MAX_FILES = 20;
-            const MAX_FILE_SIZE = 5 * 1024 * 1024;
+            const MAX_FILES = 10;
+            const MAX_FILE_SIZE = 25 * 1024 * 1024;
             let selectedFiles = [];
             let settings = {
-                scale: 1,
-                background: 'transparent',
-                preserveAspectRatio: true,
+                dpi: 300,
+                pages: 'all',
                 antiAliasing: true,
-                optimizePng: false,
+                preserveTransparency: true,
+                grayscale: false,
                 compression: 6
             };
             
@@ -585,12 +585,12 @@
                         showWarning(`Maximum ${MAX_FILES} files allowed`);
                         break;
                     }
-                    if (!file.name.toLowerCase().endsWith('.svg')) {
-                        showWarning(`${file.name} is not an SVG file`);
+                    if (file.type !== 'application/pdf') {
+                        showWarning(`${file.name} is not a PDF file`);
                         continue;
                     }
                     if (file.size > MAX_FILE_SIZE) {
-                        showWarning(`${file.name} exceeds 5MB limit`);
+                        showWarning(`${file.name} exceeds 25MB limit`);
                         continue;
                     }
                     selectedFiles.push(file);
@@ -623,7 +623,7 @@
                 updateUploadArea();
                 if (selectedFiles.length === 0) {
                     convertBtn.disabled = true;
-                    previewArea.innerHTML = '<i class="fas fa-vector-square" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i><p>Select SVG files to see preview</p>';
+                    previewArea.innerHTML = '<i class="fas fa-file-pdf" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i><p>Select PDF files to see preview</p>';
                 }
             };
             
@@ -645,9 +645,9 @@
                 setTimeout(() => warningMessage.style.display = 'none', 5000);
             }
             
-            scaleSlider.addEventListener('input', (e) => {
-                settings.scale = parseInt(e.target.value);
-                scaleValue.textContent = settings.scale + 'x';
+            dpiSlider.addEventListener('input', (e) => {
+                settings.dpi = parseInt(e.target.value);
+                dpiValue.textContent = settings.dpi;
             });
             
             compressionSlider.addEventListener('input', (e) => {
@@ -655,15 +655,15 @@
                 compressionValue.textContent = settings.compression;
             });
             
-            document.querySelectorAll('[data-bg]').forEach(btn => {
+            document.querySelectorAll('[data-pages]').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    document.querySelectorAll('[data-bg]').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('[data-pages]').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    settings.background = this.dataset.bg;
+                    settings.pages = this.dataset.pages;
                 });
             });
             
-            ['preserveAspectRatio', 'antiAliasing', 'optimizePng'].forEach(id => {
+            ['antiAliasing', 'preserveTransparency', 'grayscale'].forEach(id => {
                 document.getElementById(id).addEventListener('change', (e) => {
                     settings[id] = e.target.checked;
                 });
@@ -688,7 +688,7 @@
                     progressBar.style.display = 'block';
                     statusMessage.style.display = 'block';
                     statusMessage.className = 'status-message status-info';
-                    statusMessage.textContent = 'Uploading SVG files...';
+                    statusMessage.textContent = 'Uploading PDFs...';
                     progress.style.width = '10%';
                     
                     const uploadResult = await converter.uploadFiles(selectedFiles);
@@ -705,7 +705,7 @@
                     if (!convertResult.success) throw new Error(convertResult.message || 'Conversion failed');
                     
                     progress.style.width = '60%';
-                    statusMessage.textContent = 'Processing images...';
+                    statusMessage.textContent = 'Processing pages...';
                     
                     const statusResult = await converter.pollStatus(convertResult.jobId, (percent) => {
                         progress.style.width = (60 + (percent * 0.3)) + '%';
@@ -742,7 +742,7 @@
                 progressBar.style.display = 'none';
                 statusMessage.style.display = 'none';
                 progress.style.width = '0%';
-                previewArea.innerHTML = '<i class="fas fa-vector-square" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i><p>Select SVG files to see preview</p>';
+                previewArea.innerHTML = '<i class="fas fa-file-pdf" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i><p>Select PDF files to see preview</p>';
             }
         });
     </script>
