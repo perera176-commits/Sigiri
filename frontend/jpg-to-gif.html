@@ -3,76 +3,947 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JPG to GIF Converter - Free Online Converter | SIGIRI</title>
-    <meta name="description" content="Convert JPG files to GIF format online for free. Fast, secure converter.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>JPG to GIF Converter - SIGIRI</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary: #4a6ee0;
+            --primary-dark: #3a5ac8;
+            --secondary: #f0f5ff;
+            --dark: #333;
+            --light: #f8f9fa;
+            --border: #e0e0e0;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
         
-    <!-- Google AdSense - Replace with your actual Publisher ID -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-     crossorigin="anonymous"></script>
-<style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; }
-        .sidebar { width: 250px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 2rem 0; position: fixed; height: 100vh; left: 0; top: 0; border-right: 1px solid rgba(255, 255, 255, 0.2); }
-        .logo { text-align: center; margin-bottom: 3rem; padding: 0 1rem; }
-        .logo h1 { color: white; font-size: 2.5rem; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
         
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         
-        .main-content { margin-left: 250px; flex: 1; padding: 2rem; }
-        .converter-container { max-width: 800px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 20px; padding: 3rem; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); }
-        h1 { color: #333; margin-bottom: 0.5rem; font-size: 2rem; }
-        .subtitle { color: #666; margin-bottom: 2rem; font-size: 1.1rem; }
-        .upload-area { border: 3px dashed #667eea; border-radius: 15px; padding: 3rem; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(102, 126, 234, 0.05); margin-bottom: 2rem; }
-        .upload-area:hover { border-color: #764ba2; background: rgba(118, 75, 162, 0.05); transform: translateY(-2px); }
-        .upload-icon { font-size: 4rem; color: #667eea; margin-bottom: 1rem; }
-        .upload-text { font-size: 1.2rem; color: #333; margin-bottom: 0.5rem; }
-        .upload-hint { color: #666; font-size: 0.9rem; }
-        #fileInput { display: none; }
-        .convert-btn { width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem 2rem; font-size: 1.1rem; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; display: none; }
-        .convert-btn.show { display: block; }
-        .premium-badge { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; display: inline-block; margin-bottom: 1rem; }
-        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 250px; padding: 1rem; } .converter-container { padding: 1.5rem; } }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), #6a89ff);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .upload-section, .settings-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            background-color: var(--secondary);
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+            background-color: #e8efff;
+        }
+        
+        .upload-area.active {
+            border-color: var(--primary);
+            background-color: #e8efff;
+        }
+        
+        .upload-area.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .file-info {
+            background-color: var(--secondary);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .file-list {
+            list-style: none;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .file-item-name {
+            flex: 1;
+            margin-right: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .file-item-size {
+            color: #777;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+        
+        .remove-file {
+            color: var(--danger);
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .remove-file:hover {
+            color: #a02030;
+        }
+        
+        .option-group {
+            margin-bottom: 25px;
+        }
+        
+        .option-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option-title i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .value-display {
+            min-width: 70px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover:not(:disabled) {
+            background-color: var(--secondary);
+        }
+        
+        .btn-outline.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-full {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        
+        .preview-section {
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .preview-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .preview-title i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+        
+        .preview-area {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            min-height: 200px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #888;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .advanced-options {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: var(--secondary);
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .toggle-advanced {
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .toggle-advanced i {
+            margin-right: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-advanced.active i {
+            transform: rotate(180deg);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            margin-top: 15px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .status-message {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        
+        .status-success {
+            color: var(--success);
+            background-color: #d4edda;
+        }
+        
+        .status-error {
+            color: var(--danger);
+            background-color: #f8d7da;
+        }
+        
+        .status-info {
+            color: var(--primary);
+            background-color: var(--secondary);
+        }
+        
+        .warning-message {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="sidebar"><div class="logo"><h1>S</h1></div></div>
-    <div class="main-content">
-        <div class="converter-container">
-            <div class="premium-badge">FREE TOOL</div>
+    <div class="container">
+        <header>
             <h1>JPG to GIF Converter</h1>
-            <p class="subtitle">Convert JPG files to GIF format</p>
-            <div class="upload-area" id="uploadArea">
-                <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                <div class="upload-text">Click to upload or drag and drop</div>
-                <div class="upload-hint">Maximum file size: 100MB</div>
-                <input type="file" id="fileInput" accept=".jpg">
+            <p class="subtitle">Create animated GIFs from multiple JPG images with custom settings</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="upload-section">
+                <h2><i class="fas fa-cloud-upload-alt"></i> Upload Images</h2>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-file-image"></i>
+                    </div>
+                    <p>Drag & drop your JPG images here</p>
+                    <p style="margin: 10px 0; color: #999;">or</p>
+                    <button class="btn btn-outline">Browse Files</button>
+                    <input type="file" id="fileInput" multiple accept=".jpg,.jpeg" style="display: none;">
+                    <p style="margin-top: 15px; font-size: 0.85rem; color: #999;">
+                        Max 50 images • 10MB per file • JPG, JPEG
+                    </p>
+                </div>
+                
+                <div class="file-info">
+                    <p><strong>Selected Files:</strong> <span id="fileCount">0</span> / 50</p>
+                    <ul class="file-list" id="fileList">
+                        <!-- File items will be added here -->
+                    </ul>
+                </div>
+                
+                <div class="warning-message" id="warningMessage"></div>
             </div>
-            <button class="convert-btn" id="convertBtn">Convert to GIF</button>
-
             
-            <!-- AdSense Display Ad -->
-            <div style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.5); border-radius: 10px; text-align: center;">
-                <div style="color: #999; font-size: 0.75rem; margin-bottom: 0.5rem;">Advertisement</div>
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                     data-ad-slot="XXXXXXXXXX"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+            <div class="settings-section">
+                <h2><i class="fas fa-cog"></i> GIF Animation Settings</h2>
+                
+                <div class="option-group">
+                    <div class="option-title">
+                        <i class="fas fa-clock"></i> Frame Delay (Speed)
+                    </div>
+                    <div class="slider-container">
+                        <span>Fast</span>
+                        <input type="range" min="10" max="1000" value="100" step="10" class="slider" id="delaySlider">
+                        <span>Slow</span>
+                        <div class="value-display" id="delayValue">100ms</div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">Lower value = faster animation</p>
+                </div>
+                
+                <div class="option-group">
+                    <div class="option-title">
+                        <i class="fas fa-palette"></i> Color Palette
+                    </div>
+                    <div class="slider-container">
+                        <span>16</span>
+                        <input type="range" min="16" max="256" value="256" step="16" class="slider" id="colorsSlider">
+                        <span>256</span>
+                        <div class="value-display" id="colorsValue">256</div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">More colors = better quality, larger file</p>
+                </div>
+                
+                <div class="option-group">
+                    <div class="option-title">
+                        <i class="fas fa-th"></i> Dithering
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-outline" data-dither="none">None</button>
+                        <button class="btn btn-outline active" data-dither="floyd">Floyd-Steinberg</button>
+                        <button class="btn btn-outline" data-dither="ordered">Ordered</button>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">Smooths color transitions</p>
+                </div>
+                
+                <div class="option-group">
+                    <div class="option-title">
+                        <i class="fas fa-sync-alt"></i> Loop Options
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-outline active" data-loop="infinite">Loop Forever</button>
+                        <button class="btn btn-outline" data-loop="once">Play Once</button>
+                        <button class="btn btn-outline" data-loop="custom">Custom</button>
+                    </div>
+                    <div id="loopCountContainer" style="display: none; margin-top: 10px;">
+                        <label style="font-size: 0.9rem;">Number of loops:</label>
+                        <input type="number" id="loopCount" min="1" max="100" value="3" style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; margin-top: 5px;">
+                    </div>
+                </div>
+                
+                <div class="option-group">
+                    <div class="option-title">
+                        <i class="fas fa-compress"></i> Image Quality
+                    </div>
+                    <div class="slider-container">
+                        <span>Low</span>
+                        <input type="range" min="50" max="100" value="90" class="slider" id="qualitySlider">
+                        <span>Max</span>
+                        <div class="value-display" id="qualityValue">90%</div>
+                    </div>
+                </div>
+                
+                <div class="toggle-advanced" id="toggleAdvanced">
+                    <i class="fas fa-chevron-down"></i> Show Advanced Options
+                </div>
+                
+                <div class="advanced-options" id="advancedOptions">
+                    <div class="option-group">
+                        <div class="option-title">
+                            <i class="fas fa-expand"></i> Size/Optimization
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="optimizeFrames">
+                            <label for="optimizeFrames">Optimize frame differences</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="transparency">
+                            <label for="transparency">Enable transparency</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="resize">
+                            <label for="resize">Auto-resize large images (faster)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="option-title">
+                            <i class="fas fa-arrows-alt"></i> Max Dimensions
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-outline" data-maxsize="480">480p</button>
+                            <button class="btn btn-outline" data-maxsize="720">720p</button>
+                            <button class="btn btn-outline active" data-maxsize="1080">1080p</button>
+                            <button class="btn btn-outline" data-maxsize="original">Original</button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="option-title">
+                            <i class="fas fa-sort"></i> Frame Order
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-outline active" data-order="name">By Name</button>
+                            <button class="btn btn-outline" data-order="date">By Date</button>
+                            <button class="btn btn-outline" data-order="reverse">Reverse</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary btn-full" id="convertBtn" disabled>
+                    <i class="fas fa-film"></i> Create GIF Animation
+                </button>
+                
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                
+                <div class="status-message" id="statusMessage"></div>
             </div>
         </div>
+        
+        <div class="preview-section">
+            <h2 class="preview-title">
+                <i class="fas fa-eye"></i> Preview
+            </h2>
+            <div class="preview-area" id="previewArea">
+                <i class="fas fa-image" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i>
+                <p>Select images to see preview</p>
+                <p style="color: #999; font-size: 0.85rem; margin-top: 10px;">Images will be animated in order</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 SIGIRI File Converter | Secure & Fast Conversion</p>
+        </footer>
     </div>
-    <script>
-        const uploadArea = document.getElementById('uploadArea');
-        const fileInput = document.getElementById('fileInput');
-        const convertBtn = document.getElementById('convertBtn');
-        uploadArea.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', (e) => { if (e.target.files.length > 0) convertBtn.classList.add('show'); });
-    </script>
 
+    <!-- Include the converter library -->
+    <script src="js/converter.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize converter
+            const converter = new SIGIRIConverter();
+            
+            // Elements
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const fileList = document.getElementById('fileList');
+            const fileCount = document.getElementById('fileCount');
+            const convertBtn = document.getElementById('convertBtn');
+            const previewArea = document.getElementById('previewArea');
+            const progressBar = document.getElementById('progressBar');
+            const progress = document.getElementById('progress');
+            const statusMessage = document.getElementById('statusMessage');
+            const toggleAdvanced = document.getElementById('toggleAdvanced');
+            const advancedOptions = document.getElementById('advancedOptions');
+            const warningMessage = document.getElementById('warningMessage');
+            const loopCountContainer = document.getElementById('loopCountContainer');
+            
+            // Settings elements
+            const delaySlider = document.getElementById('delaySlider');
+            const delayValue = document.getElementById('delayValue');
+            const colorsSlider = document.getElementById('colorsSlider');
+            const colorsValue = document.getElementById('colorsValue');
+            const qualitySlider = document.getElementById('qualitySlider');
+            const qualityValue = document.getElementById('qualityValue');
+            const loopCount = document.getElementById('loopCount');
+            
+            // Configuration
+            const MAX_FILES = 50;
+            const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+            let selectedFiles = [];
+            let settings = {
+                frameDelay: 100,
+                colors: 256,
+                dithering: 'floyd',
+                loop: 'infinite',
+                loopCount: 0,
+                quality: 90,
+                optimizeFrames: false,
+                transparency: false,
+                resize: false,
+                maxSize: '1080',
+                frameOrder: 'name'
+            };
+            
+            // Upload area interactions
+            uploadArea.addEventListener('click', () => {
+                if (!uploadArea.classList.contains('disabled')) {
+                    fileInput.click();
+                }
+            });
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                if (!uploadArea.classList.contains('disabled')) {
+                    uploadArea.classList.add('active');
+                }
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('active');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('active');
+                if (!uploadArea.classList.contains('disabled')) {
+                    handleFiles(e.dataTransfer.files);
+                }
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+            });
+            
+            // File handling
+            function handleFiles(files) {
+                for (let file of files) {
+                    if (selectedFiles.length >= MAX_FILES) {
+                        showWarning(`Maximum ${MAX_FILES} files allowed`);
+                        break;
+                    }
+                    
+                    if (!file.type.match('image/(jpeg|jpg)')) {
+                        showWarning(`${file.name} is not a supported format`);
+                        continue;
+                    }
+                    
+                    if (file.size > MAX_FILE_SIZE) {
+                        showWarning(`${file.name} exceeds 10MB limit`);
+                        continue;
+                    }
+                    
+                    selectedFiles.push(file);
+                }
+                
+                updateFileList();
+                updateUploadArea();
+                
+                if (selectedFiles.length > 0) {
+                    convertBtn.disabled = false;
+                    showPreview(selectedFiles[0]);
+                }
+            }
+            
+            function updateFileList() {
+                fileList.innerHTML = '';
+                fileCount.textContent = selectedFiles.length;
+                
+                selectedFiles.forEach((file, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'file-item';
+                    
+                    const name = document.createElement('span');
+                    name.className = 'file-item-name';
+                    name.textContent = `${index + 1}. ${file.name}`;
+                    
+                    const size = document.createElement('span');
+                    size.className = 'file-item-size';
+                    size.textContent = formatFileSize(file.size);
+                    
+                    const removeBtn = document.createElement('span');
+                    removeBtn.className = 'remove-file';
+                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    removeBtn.onclick = () => removeFile(index);
+                    
+                    li.appendChild(name);
+                    li.appendChild(size);
+                    li.appendChild(removeBtn);
+                    fileList.appendChild(li);
+                });
+            }
+            
+            function removeFile(index) {
+                selectedFiles.splice(index, 1);
+                updateFileList();
+                updateUploadArea();
+                
+                if (selectedFiles.length === 0) {
+                    convertBtn.disabled = true;
+                    previewArea.innerHTML = '<i class="fas fa-image" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i><p>Select images to see preview</p><p style="color: #999; font-size: 0.85rem; margin-top: 10px;">Images will be animated in order</p>';
+                } else {
+                    showPreview(selectedFiles[0]);
+                }
+            }
+            
+            function updateUploadArea() {
+                if (selectedFiles.length >= MAX_FILES) {
+                    uploadArea.classList.add('disabled');
+                } else {
+                    uploadArea.classList.remove('disabled');
+                }
+            }
+            
+            function showPreview(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewArea.innerHTML = `
+                        <img src="${e.target.result}" class="preview-image" alt="Preview">
+                        <p style="color: #333; font-weight: 600;">Frame 1 of ${selectedFiles.length}</p>
+                        <p style="color: #666; font-size: 0.9rem;">${file.name}</p>
+                        <p style="color: #999; font-size: 0.85rem; margin-top: 5px;">GIF will animate these ${selectedFiles.length} image(s)</p>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            function showWarning(message) {
+                warningMessage.textContent = message;
+                warningMessage.style.display = 'block';
+                setTimeout(() => {
+                    warningMessage.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Settings interactions
+            delaySlider.addEventListener('input', (e) => {
+                settings.frameDelay = parseInt(e.target.value);
+                delayValue.textContent = settings.frameDelay + 'ms';
+            });
+            
+            colorsSlider.addEventListener('input', (e) => {
+                settings.colors = parseInt(e.target.value);
+                colorsValue.textContent = settings.colors;
+            });
+            
+            qualitySlider.addEventListener('input', (e) => {
+                settings.quality = parseInt(e.target.value);
+                qualityValue.textContent = settings.quality + '%';
+            });
+            
+            // Dithering buttons
+            document.querySelectorAll('[data-dither]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('[data-dither]').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    settings.dithering = this.dataset.dither;
+                });
+            });
+            
+            // Loop buttons
+            document.querySelectorAll('[data-loop]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('[data-loop]').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    settings.loop = this.dataset.loop;
+                    
+                    if (settings.loop === 'custom') {
+                        loopCountContainer.style.display = 'block';
+                        settings.loopCount = parseInt(loopCount.value);
+                    } else {
+                        loopCountContainer.style.display = 'none';
+                        settings.loopCount = settings.loop === 'infinite' ? 0 : 1;
+                    }
+                });
+            });
+            
+            loopCount.addEventListener('input', (e) => {
+                settings.loopCount = parseInt(e.target.value);
+            });
+            
+            // Max size buttons
+            document.querySelectorAll('[data-maxsize]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('[data-maxsize]').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    settings.maxSize = this.dataset.maxsize;
+                });
+            });
+            
+            // Frame order buttons
+            document.querySelectorAll('[data-order]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('[data-order]').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    settings.frameOrder = this.dataset.order;
+                });
+            });
+            
+            // Checkboxes
+            document.getElementById('optimizeFrames').addEventListener('change', (e) => {
+                settings.optimizeFrames = e.target.checked;
+            });
+            
+            document.getElementById('transparency').addEventListener('change', (e) => {
+                settings.transparency = e.target.checked;
+            });
+            
+            document.getElementById('resize').addEventListener('change', (e) => {
+                settings.resize = e.target.checked;
+            });
+            
+            // Toggle advanced options
+            toggleAdvanced.addEventListener('click', () => {
+                toggleAdvanced.classList.toggle('active');
+                if (advancedOptions.style.display === 'none' || !advancedOptions.style.display) {
+                    advancedOptions.style.display = 'block';
+                    toggleAdvanced.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Advanced Options';
+                } else {
+                    advancedOptions.style.display = 'none';
+                    toggleAdvanced.innerHTML = '<i class="fas fa-chevron-down"></i> Show Advanced Options';
+                }
+            });
+            
+            // Convert button
+            convertBtn.addEventListener('click', async () => {
+                if (selectedFiles.length === 0) return;
+                
+                if (selectedFiles.length === 1) {
+                    showWarning('Please upload at least 2 images to create an animation');
+                    return;
+                }
+                
+                try {
+                    convertBtn.disabled = true;
+                    convertBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating GIF...';
+                    progressBar.style.display = 'block';
+                    statusMessage.style.display = 'block';
+                    statusMessage.className = 'status-message status-info';
+                    statusMessage.textContent = 'Uploading images...';
+                    
+                    progress.style.width = '10%';
+                    
+                    // Upload files
+                    const uploadResult = await converter.uploadFiles(selectedFiles);
+                    if (!uploadResult.success) {
+                        throw new Error(uploadResult.message || 'Upload failed');
+                    }
+                    
+                    progress.style.width = '30%';
+                    statusMessage.textContent = 'Creating GIF animation...';
+                    
+                    // Start conversion with settings
+                    const convertResult = await converter.startConversion(uploadResult.uploadId, {
+                        outputFormat: 'gif',
+                        ...settings
+                    });
+                    
+                    if (!convertResult.success) {
+                        throw new Error(convertResult.message || 'Conversion failed');
+                    }
+                    
+                    progress.style.width = '60%';
+                    statusMessage.textContent = 'Processing frames...';
+                    
+                    // Poll for completion
+                    const statusResult = await converter.pollStatus(convertResult.jobId, (percent) => {
+                        progress.style.width = (60 + (percent * 0.3)) + '%';
+                    });
+                    
+                    if (!statusResult.success) {
+                        throw new Error(statusResult.message || 'Conversion failed');
+                    }
+                    
+                    progress.style.width = '90%';
+                    statusMessage.textContent = 'Downloading GIF...';
+                    
+                    // Download result
+                    await converter.downloadFile(statusResult.jobId, 'animation.gif');
+                    
+                    progress.style.width = '100%';
+                    statusMessage.className = 'status-message status-success';
+                    statusMessage.textContent = '✓ GIF created successfully!';
+                    
+                    setTimeout(() => {
+                        resetConverter();
+                    }, 3000);
+                    
+                } catch (error) {
+                    console.error('Conversion error:', error);
+                    statusMessage.className = 'status-message status-error';
+                    statusMessage.textContent = '✗ Error: ' + error.message;
+                    convertBtn.disabled = false;
+                    convertBtn.innerHTML = '<i class="fas fa-film"></i> Create GIF Animation';
+                }
+            });
+            
+            function resetConverter() {
+                selectedFiles = [];
+                fileInput.value = '';
+                updateFileList();
+                updateUploadArea();
+                convertBtn.disabled = true;
+                convertBtn.innerHTML = '<i class="fas fa-film"></i> Create GIF Animation';
+                progressBar.style.display = 'none';
+                statusMessage.style.display = 'none';
+                progress.style.width = '0%';
+                previewArea.innerHTML = '<i class="fas fa-image" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i><p>Select images to see preview</p><p style="color: #999; font-size: 0.85rem; margin-top: 10px;">Images will be animated in order</p>';
+            }
+        });
+    </script>
 </body>
 </html>
